@@ -1,0 +1,49 @@
+﻿
+@charset "utf-8";
+li{ list-style: none;}
+.color6{ font-size:12px; color:#666;}
+.pSpace p{ margin-bottom:20px; line-height:22px;}
+.pSpace2 p{line-height:22px;}
+
+/*---------------------------首页Banner---------------------------*/
+.bannerIndexWrap{ width:100%; overflow:hidden;  border-bottom:1px solid #d2d4e8; background-color:#e3e8ee;}
+.bannerIndex {width:1000px; height:335px;  }
+
+/* jQuery jcImgScroll css */
+.jcImgScroll { position:relative; width:890px; padding:10px 0px 0px 0px;  margin:0px auto 0px auto; height:335px; }
+.jcImgScroll li { margin-left:20px;}
+.jcImgScroll li a { display:block;height:280px;   }
+.jcImgScroll li.loading a { } 
+.jcImgScroll li img,.jcImgScroll li,.jcImgScroll em,.jcImgScroll dl { display:none;}
+.jcImgScroll em.sPrev { background:url(images/arrow-left.png) no-repeat  center; }
+.jcImgScroll em.sNext { background:url(images/arrow-right.png) no-repeat right center;}
+.jcImgScroll dl{width:190px !important; top:297px !important; left: 380px !important; z-index:700;}
+.jcImgScroll dl dd { background:url(../images/NumBtn.png) no-repeat 0 bottom; float:left; margin-left:20px !important;  text-indent:-9em; }
+.jcImgScroll dl dd:hover,.jcImgScroll dl dd.curr { background-position:0 0; }
+.jcImgScroll li img{  height:280px !important; border:0px;}
+
+
+/**/
+.one_fourth_l{ width:230px !important;}
+.no_bullet_f{ overflow:hidden; }
+.no_bullet_f li{ overflow:hidden; padding:5px !important; color:#555; }
+.no_bullet_f li img{ width:42px; height:35px; float:left;}
+.no_bullet_f div{ width:230px; float:left; margin-left:10px; line-height:20px; font-size:15px;}
+.no_bullet_f div span{ float:left;font-size:small; color:#666666;}
+
+/**/
+.gengduo{ width:1040px;}
+
+/**/
+#templatemo_main {
+padding: 20px 10px;
+}
+
+/**/
+.Dy_o{ width:1050px; height:350px; margin:10px auto 10px auto;}
+.Dy_o_l{ float:left; width:280px; height:350px; border:1px solid red;}
+
+.Dy_o_r{ float:left; width:690px; height:350px; border:1px solid red; margin-left:10px;}
+.Dy_o_r h4 {border-bottom: 2px solid #333;padding-bottom: 10px;color: black;font-size: 24px;}
+.Dy_o_r_txt{ width:690px;}
+.Dy_o_r_txt img{ width: 200px; height:140px;}

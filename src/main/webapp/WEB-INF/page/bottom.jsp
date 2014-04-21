@@ -6,11 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+<%@include file="/common/taglibs.jsp"%>
 
-</body>
-</html>
+<!-- - - - - - - - - - - - - - footer - - - - - - - - - - - - - - - - -->
+<footer id="footer">
+	<div class="contact">
+		<h4>慧于心 乐其事 勤于思 敏于行</h4>
+		<ul>
+			<li>地址：成都市一环路东段</li>
+			<li>电话：028-12345678</li>
+			<li>邮箱：x@gamil.com</li>
+		</ul>
+	</div>
+	<div class="clear"></div>
+</footer>

@@ -53,7 +53,7 @@ public class ArticleAction extends BaseAction {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("typeid", typeid);
 		request.setAttribute("pm", pm);
-		return new JspView("zsds.articleList");
+		return new JspView("page.articleList");
 		
 	}
 	
@@ -109,7 +109,7 @@ public class ArticleAction extends BaseAction {
 		//request.setAttribute("posters", posters);
 		request.setAttribute("pm", pm);
 		
-		return new JspView("zsds.articleList");
+		return new JspView("page.articleList");
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public class ArticleAction extends BaseAction {
 		request.setAttribute("products", products);
 		request.setAttribute("pm", pm);
 		
-		return new JspView("zsds.productShow");
+		return new JspView("page.productShow");
 	}
 	
 	
@@ -168,7 +168,7 @@ public class ArticleAction extends BaseAction {
 		req.setAttribute("imgAndArticle", imgAndArticle);
 		req.setAttribute("article", article);
 		req.setAttribute("posters", posters);
-		return new JspView("zsds.articleDetail");
+		return new JspView("page.articleDetail");
 	}
 	
 }

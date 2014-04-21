@@ -13,14 +13,21 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>无标题文档</title>
-	<link rel="stylesheet" href="${ctx}/matter/css/reset.css" media="screen"  type="text/css"/>
-	<link rel="stylesheet" href="${ctx}/matter/css/index.css" media="screen"  type="text/css"/>
-	<link rel="stylesheet" href="${ctx}/matter/css/style.css" media="screen"  type="text/css"/>
+	<link rel="stylesheet" href="${ctx}/matter/css/reset.css" media="screen" type="text/css"/>
+	<link rel="stylesheet" href="${ctx}/matter/css/index.css" media="screen" type="text/css"/>
+	<link rel="stylesheet" href="${ctx}/matter/css/style.css" media="screen" type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/lrtk.css" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="${ctx}/matter/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 
 	<script type="text/javascript" src="${ctx}/matter/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/global.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/tab.js"></script>
+	<script type="text/javascript" src="${ctx}/matter/js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="${ctx}/matter/js/gallery.js"></script>
+	<script type="text/javascript" src="${ctx}/matter/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<script>
+		!window.jQuery && document.write('<script src="js/jquery-1.4.3.min.js"><\/script>');
+	</script>
 </head>
 
 <body>
@@ -36,42 +43,15 @@
 					<div class="clear"></div>
 				</div>
 				<!-- - - - - - - - - - - - - - _cont_main ul - - - - - - - - - - - - - - - - -->
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
+				<div class="content_gallery">
+					<p>
+						<a rel="example_group" href="${ctx}/matter/images/example/9_b.jpg" title="作品展示标题"><img alt="" src="${ctx}/matter/images/example/9_s.jpg" /></a>
+						<a rel="example_group" href="${ctx}/matter/images/example/10_b.jpg" title="作品展示标题"><img alt="" src="${ctx}/matter/images/example/10_s.jpg" /></a>
+						<a rel="example_group" href="${ctx}/matter/images/example/11_b.jpg" title="作品展示标题"><img alt="" src="${ctx}/matter/images/example/11_s.jpg" /></a>
+						<a rel="example_group" href="${ctx}/matter/images/example/12_b.jpg" title="作品展示标题"><img class="last" alt="" src="${ctx}/matter/images/example/12_s.jpg" /></a>
+					</p>
+				</div>
 				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<!-- - - - - - - - - - - - - - _cont_main  ul- - - - - - - - - - - - - - - - -->
 				<!-- ------------------------分页list----------------------------------------------------------------->
 				<div class="list">
 					<a href="#">上一页</a>

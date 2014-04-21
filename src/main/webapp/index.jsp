@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   		<script type="text/javascript">
-  			location.href="${pageContext.request.contextPath}/officialwebsite/index";
+  			location.href="${pageContext.request.contextPath}/index";
   		</script>
   </body>
 </html>

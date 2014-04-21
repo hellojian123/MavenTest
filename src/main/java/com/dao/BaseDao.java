@@ -45,7 +45,7 @@ public class BaseDao {
 		ds = ioc.get(BasicDataSource.class, dataSourceName);
 		dao = new NutDao(ds);
 	}
-	
+	public BaseDao(){};
 	/**
 	 * 根据Id删除数据
 	 * @param <T>

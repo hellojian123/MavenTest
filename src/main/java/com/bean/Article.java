@@ -63,7 +63,7 @@ public class Article implements Serializable {
 	 * 文章类型id
 	 */
 	@Column
-	private int typeid;// 1公司新闻      2行业动态    3成功案例    4业务体系        5人才招聘     6公司愿景     7公司介绍     8组织结构     9发展历程   10联系我们  
+	private int typeid;// 1公司新闻   2行业动态   3成功案例    4公司介绍    5人才招聘    6业务体系  7网站建设  8系统开发  9 APP开发  10业务流程
 	public Integer getId() {
 		return id;
 	}

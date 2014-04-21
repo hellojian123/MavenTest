@@ -59,14 +59,14 @@ public class DeleteImgByHtml {
 	}
 	
 	/**
-	 * 根据存储在数据库中的图片路径删除图片
+	 * 根据存储在数据库中的图片路径删除服务器上的图片(客户端上传到服务器的图片，如首页滚动大图或文章预览图)
 	 * @param imgSrc 图片路径
 	 */
 	public static void deletePicture(HttpServletRequest req, String imgSrc){
 		String path=req.getSession().getServletContext().getContextPath();//项目名
 		String pathPic = req.getSession().getServletContext().getRealPath("/");
-		String realyPic=pathPic.substring(0, pathPic.length()-(path.length()+1))+imgSrc;
-		String newImgSrc=realyPic.replace("/", File.separator).replace("\\", File.separator);//处理不同系统 文件夹路径分隔符不同的问题
+		String realPic=pathPic.substring(0, pathPic.length()-(path.length()+1))+imgSrc;
+		String newImgSrc=realPic.replace("/", File.separator).replace("\\", File.separator);//处理不同系统 文件夹路径分隔符不同的问题
 		File file = new File(newImgSrc);
 		if(file.exists()){
 			file.delete();

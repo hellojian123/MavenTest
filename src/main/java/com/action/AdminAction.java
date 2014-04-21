@@ -301,9 +301,9 @@ public class AdminAction {
 	public String updateNews(@Param("::nt.")NewsTemplate nt, Ioc ioc,HttpServletRequest req){
 		NewsTemplateDao dao=new NewsTemplateDao(ioc);
         //如果用户改变图片，则删除上一张图片
-        NewsTemplate oldImgUrl=dao.find(nt.getId(), NewsTemplate.class);
-        if(null!=nt.getImgUrl()&&null!=oldImgUrl.getImgUrl()&&!nt.getImgUrl().equals(oldImgUrl.getImgUrl())){
-            delServerImg(req,oldImgUrl);
+        NewsTemplate oldNt=dao.find(nt.getId(), NewsTemplate.class);
+        if(null!=nt.getImgUrl()&&null!=oldNt.getImgUrl()&&!nt.getImgUrl().equals(oldNt.getImgUrl())){
+           DeleteImgByHtml.deletePicture(req,oldNt.getImgUrl());
         }
 
 		if(dao.update(nt)){
@@ -313,21 +313,6 @@ public class AdminAction {
 		}
 	}
 
-    /**
-     * 删除服务器上的首页滚动图片
-     * @param req
-     */
-    private void delServerImg(HttpServletRequest req,NewsTemplate oldImgUrl){
-        String webName=req.getContextPath();
-        String oldImg=oldImgUrl.getImgUrl().substring(oldImgUrl.getImgUrl().indexOf(webName)+webName.length());
-        String path=req.getSession().getServletContext().getRealPath(oldImg);
-        String newImgSrc=path.replace("/", File.separator).replace("\\", File.separator);//处理不同系统 文件夹路径分隔符不同的问题
-        File file=new File(newImgSrc);
-        if(file.exists()){
-            file.delete();
-        }
-    }
-	
 	/**
 	 * 查询所有文章
 	 * @param ioc
@@ -359,7 +344,14 @@ public class AdminAction {
 				return "1";//保存失败
 			}
 		}else{
-			//更新之后删除图片
+
+            //如果用户改变图片，则删除上一张预览图片
+            Article oldArticle=dao.find(article.getId(), Article.class);
+            if(article.getPreviewImg()!=null&&oldArticle.getPreviewImg()!=null&&!article.getPreviewImg().equals(oldArticle.getPreviewImg())){
+                DeleteImgByHtml.deletePicture(req,oldArticle.getPreviewImg());
+            }
+
+			//更新之后删除文章内容中的图片
 			Article article2 = dao.find(article.getId(), Article.class);
 			List<String> oldDetailList =DeleteImgByHtml.getImgStr(article2.getContent());	//	数据库中的图片标签的src路径
 			List<String> newDetailList =DeleteImgByHtml.getImgStr(article.getContent());	//这是更新过后详细信息中图片标签的src路径
@@ -379,28 +371,19 @@ public class AdminAction {
 		ArticleDao dao =new ArticleDao(ioc);
 		Article article = dao.find(articleId,Article.class);
 		if(article != null){
+            //删除预览图片
+            if(null!=article.getPreviewImg()){
+               DeleteImgByHtml.deletePicture(req,article.getPreviewImg());
+            }
+            //删除文章内容中的图片
 			DeleteImgByHtml.deleteArticleImgs(req.getSession(),article.getContent());
 		}
-		
 		if(dao.delById(articleId,Article.class)){
 			return "0";//删除成功
 		}else{
 			return "1";//删除失败
 		}
 	}
-	
-	/**
-	 * 进入测试页面
-	 * @param ioc
-	 * @param req
-	 * @return
-	 */
-	@At("/admin/test")
-	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
-	public View testPage(Ioc ioc,HttpServletRequest req){
-		return new JspView("admin.test");
-	}
-	
 	/**
 	 * 根据id查找数据
 	 * @return
@@ -424,15 +407,19 @@ public class AdminAction {
 	public View batchDeleteArticleById(@Param("ids")String ids,@Param("currentPage")Integer currentPage,@Param("menuTypeId")Integer menuTypeId,@Param("date")String date,Ioc ioc,
 			HttpServletRequest req,HttpServletResponse rep) throws IOException {
 		ArticleDao dao= new ArticleDao(ioc);
-		
-		        //删除详情图片
+
 				if(ids!=null&&!"".equals(ids)){
 					String[] arr=ids.split(",");
 					for(String id:arr){
-						Article article2 = dao.find(Integer.parseInt(id),Article.class);
-						if(article2 != null){
-							DeleteImgByHtml.deleteArticleImgs(req.getSession(),article2.getContent());
-						}
+                        Article article = dao.find(Integer.parseInt(id), Article.class);
+                        if(null!=article){
+                        //删除预览图片
+                        if(null!=article.getPreviewImg()){
+                           DeleteImgByHtml.deletePicture(req,article.getPreviewImg());
+                        }
+                        //删除详情图片
+					    DeleteImgByHtml.deleteArticleImgs(req.getSession(),article.getContent());
+                        }
 					}
 				}
 		
@@ -541,8 +528,8 @@ public class AdminAction {
                     sb.append(oldList.get(i).getId());
                     sb.append(",");
                     if(type=="1"){//如果是首页滚动图
-                        NewsTemplate oldImgUrl=ntd.find(oldList.get(i).getId(), NewsTemplate.class);
-                        delServerImg(request,oldImgUrl);
+                        NewsTemplate oldNt=ntd.find(oldList.get(i).getId(), NewsTemplate.class);
+                        DeleteImgByHtml.deletePicture(request,oldNt.getImgUrl());
                     }
                 }
                 sb.delete(sb.length()-1,sb.length());

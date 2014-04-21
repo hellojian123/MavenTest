@@ -18,6 +18,7 @@
 		<script type="text/javascript" src="${ctx}/js/article.js"></script>
 		<script charset="utf-8" src="${ctx}/editor/kindeditor.js"></script>
 		<script charset="utf-8" src="${ctx}/editor/lang/zh_CN.js"></script>
+        <script type="text/javascript" src="${ctx}/js/ajaxfileupload.js"></script>
 		<script type="text/javascript">
 		var editor;
 		KindEditor.ready(function(K){
@@ -25,7 +26,8 @@
 					uploadJson : '${ctx}/editor/jsp/upload_json.jsp',
 					fileManagerJson : '${ctx}/editor/jsp/file_manager_json.jsp',
 					allowPreviewEmoticons : true,
-					allowFileManager : true
+					allowFileManager : true,
+                    height:"280%"
 				});
 		});
 		var articleid="";
@@ -54,14 +56,14 @@
 				}
 				var display=$("#previewImgP").css("display");
 				if($.trim(display)=='block'){
-					imgUrl=$("#previewImgUrl").val();
+					imgUrl=$("#imgUrlAddress").attr("src");
 					if(imgUrl==""){
-						alert("预览图地址不能为空！");
+						alert("请上传该成功案例的预览图！");
 						return false;
 					}
 				}
-				if($.trim(title).length>20){
-					alert("标题字数不能超过20个！");
+				if($.trim(title).length>30){
+					alert("标题字数不能超过30个！");
 					return false;
 				}
 				if(articleType=="0"){
@@ -161,7 +163,7 @@
 						$("#title").val(data.title);
 						editor.html(data.content);
 						$("#keywords").val(data.keywords);
-						$("#previewImgUrl").val(data.previewImg);
+						$("#imgUrlAddress").attr("src",data.previewImg);
 						$("#source").val(data.source);
 						if(data.typeid!=1&&data.typeid!=2&&data.typeid!=3&&data.typeid!=11){// 除公司新闻   行业动态  成功案例以外的其他新闻
 							$("#articleTypeMinor").val(data.typeid);
@@ -184,7 +186,29 @@
 						$("#tab2").show();
 				});
 			}
-			
+        function uploadimage(file){
+            var id = $("#foodId").val();
+            $.ajaxFileUpload({
+                url:'${ctx}/editor/jsp/upload_json.jsp',
+                secureuri:false,
+                fileElementId:"previewImgUrl",
+                dataType: 'json',
+                success: function (data, status)
+                {
+                    if(data.error==0){//成功
+                        $("#imgUrlAddress").attr("src",data.url);
+                        alert("上传成功！");
+                    }else{//失败
+                        alert(data.message);
+                    }
+                },
+                error: function (data, status, e)
+                {
+                    alert(e);
+                }
+            });
+            return false;
+        }
 		</script>
 		<style type="text/css">
 			label{
@@ -193,7 +217,7 @@
 		</style>
 	</head>
 	<body style="background-image: none;">
-			<div id="main-content" style="width: 100%;height: 100%;margin-left: 0px;">
+			<div id="main-content" style="width: 100%;height: 120%;margin-left: 0px;">
 				<div class="content-box">
 					<div class="content-box-header">
 						<h3>
@@ -214,9 +238,8 @@
 					<div class="content-box-content">
 						<div class="tab-content default-tab" id="tab1">
 							<div class="notification attention png_bg">
-								<a href="#" class="close"><img
-										src="${ctx}/images/icons/cross_grey_small.png"
-										title="Close this notification" alt="close" />
+								<a href="#" class="close">
+                                    <img src="${ctx}/images/icons/cross_grey_small.png" title="Close this notification" alt="close" />
 								</a>
 								<div>
 								<form action="${ctx}/admin/article" method="get">
@@ -227,13 +250,13 @@
 											<option value="1">公司新闻</option>
 											<option value="2">行业动态</option>
 											<option value="3">成功案例</option>
-											<option value="4">业务体系</option>
+											<option value="4">公司介绍</option>
 											<option value="5">人才招聘</option>
-											<option value="6">公司愿景</option>
-											<option value="7">公司介绍</option>
-											<option value="8">组织结构</option>
-											<option value="9">发展历程</option>
-											<option value="10">联系我们</option>
+											<option value="6">业务体系</option>
+											<option value="7">网站建设</option>
+											<option value="8">系统开发</option>
+											<option value="9">APP开发</option>
+											<option value="10">业务流程</option>
 										</select>
 									 时间<input class="Medium-input" type="text" onClick="WdatePicker()" id="pubtime" name="date" size="8" value="${date}" />
 										<input type="submit" value="  查  询 " class="button"/>
@@ -312,24 +335,21 @@
 														<c:if test="${article.typeid==1}">公司新闻</c:if>
 														<c:if test="${article.typeid==2}">行业动态</c:if>
 														<c:if test="${article.typeid==3}">成功案例</c:if>
-														<c:if test="${article.typeid==4}">业务体系</c:if>
+														<c:if test="${article.typeid==4}">公司介绍</c:if>
 														<c:if test="${article.typeid==5}">人才招聘</c:if>
-														<c:if test="${article.typeid==6}">公司愿景</c:if>
-														<c:if test="${article.typeid==7}">公司介绍</c:if>
-														<c:if test="${article.typeid==8}">组织结构</c:if>
-														<c:if test="${article.typeid==9}">发展历程</c:if>
-														<c:if test="${article.typeid==10}">联系我们</c:if>
+														<c:if test="${article.typeid==6}">业务体系</c:if>
+														<c:if test="${article.typeid==7}">网站建设</c:if>
+														<c:if test="${article.typeid==8}">系统开发</c:if>
+														<c:if test="${article.typeid==9}">APP开发</c:if>
+														<c:if test="${article.typeid==10}">业务流程</c:if>
 													</td>
 													<td>
 														<fmt:formatDate value="${article.modifyDate}" pattern="yyyy/MM/dd"/>
 													</td>												
 													<td>
-														<c:if test="${article.typeid==1||article.typeid==2||article.typeid==3}">
 															<a href="javascript:void(0)" class="deleteArticle" articleId="${article.id}" articleTitle="${article.title}" title="删除文章">
 																<img src="${ctx}/images/icons/cross.png" alt="删除文章" />
 															</a>
-														</c:if>
-														
 														<a href="javascript:edit('${ctx}',${article.id},editor)" title="修改文章"><img src="${ctx}/images/icons/hammer_screwdriver.png" alt="修改文章" /></a>
 													</td>
 												</tr>
@@ -372,17 +392,17 @@
 											所属模块：
 										</label>
 										<select id="articleType" name="color">
-											<option value="0">请选择</option>
-											<option value="1">公司新闻</option>
-											<option value="2">行业动态</option>
-											<option value="3">成功案例</option>
-											<option value="4">业务体系</option>
-											<option value="5">人才招聘</option>
-											<option value="6">公司愿景</option>
-											<option value="7">公司介绍</option>
-											<option value="8">组织结构</option>
-											<option value="9">发展历程</option>
-											<option value="10">联系我们</option>
+                                            <option value="0">不限</option>
+                                            <option value="1">公司新闻</option>
+                                            <option value="2">行业动态</option>
+                                            <option value="3">成功案例</option>
+                                            <option value="4">公司介绍</option>
+                                            <option value="5">人才招聘</option>
+                                            <option value="6">业务体系</option>
+                                            <option value="7">网站建设</option>
+                                            <option value="8">系统开发</option>
+                                            <option value="9">APP开发</option>
+                                            <option value="10">业务流程</option>
 										</select>
 										<span class="input-notification attention png_bg"> 文章内容在网站上属于哪个模块</span><br/>
 									</p>
@@ -392,26 +412,27 @@
 											所属模块：
 										</label>
 										<select id="articleTypeMinor" name="color" disabled="disabled">
-											<option value="1">公司新闻</option>
-											<option value="2">行业动态</option>
-											<option value="3">成功案例</option>
-											<option value="4">业务体系</option>
-											<option value="5">人才招聘</option>
-											<option value="6">公司愿景</option>
-											<option value="7">公司介绍</option>
-											<option value="8">组织结构</option>
-											<option value="9">发展历程</option>
-											<option value="10">联系我们</option>
+                                            <option value="1">公司新闻</option>
+                                            <option value="2">行业动态</option>
+                                            <option value="3">成功案例</option>
+                                            <option value="4">公司介绍</option>
+                                            <option value="5">人才招聘</option>
+                                            <option value="6">业务体系</option>
+                                            <option value="7">网站建设</option>
+                                            <option value="8">系统开发</option>
+                                            <option value="9">APP开发</option>
+                                            <option value="10">业务流程</option>
 										</select>
 										<span class="input-notification attention png_bg"> 文章内容在网站上属于哪个模块</span><br/>
 									</p>
-									<p id="previewImgP" style="display:none">
+									<%--<p id="previewImgP" style="display:none">
+
 										<label>
 											&nbsp;&nbsp;&nbsp;预览图：
 										</label>
 										<input class="text-input Medium-input" type="text" id="previewImgUrl" />
 										<span class="input-notification information png_bg">该成功案列的预览图地址</span><br/>
-									</p>
+									</p>--%>
 									<p>
 										<label>
 											&nbsp;&nbsp;&nbsp;关键字：
@@ -428,8 +449,14 @@
 										<span class="input-notification information png_bg">文章的来源信息,默认为原创</span>
 										<br/>
 									</p>
-									
-																		
+                                    <P id="previewImgP" style="display:none">
+                                        <label style="color: red;">
+                                            上传预览图：
+                                        </label>
+                                        <input style="width:137px;"  class="testInput" name="previewImgUrl" id="previewImgUrl" type="file" value='${poster.imgUrl}'/>
+                                        <input class="button setBtnWidth" type="button" value="上传" onclick="uploadimage()" style="width:50px;" id="uploadImg" foodId="${food.id}"/><br/>
+                                        <img src="" width="725px" height="150px" style="border:1px #555 solid;" id="imgUrlAddress"  />
+                                    </P>
 									<p>
 											<input class="button" type="button" style="width:90px;margin-left:70px;" onclick="saveOrUpdateArticle()" value="保存"/>
 									</p>

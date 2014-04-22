@@ -43,12 +43,12 @@ public class ArticleAction extends BaseAction {
 		});
 		List<Article> articles=(List<Article>)objs[0];
 		List<Article> articleHots=(List<Article>)objs[1];
-				
+
 		PageModel<Article> pm = new PageModel<Article>(articles, maxPage);
 		pm.setCurPage(currentPage);
-		
+
 		request.setAttribute("articleHots", articleHots);
-		
+
 		request.setAttribute("articles",articles);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("typeid", typeid);
@@ -151,25 +151,27 @@ public class ArticleAction extends BaseAction {
 		Article article=dao.find(articleId, Article.class);
 		article.setClickNum(article.getClickNum()+1);
 		dao.update(article);
-		final Integer tempTypeId=article.getTypeid();
-		final Object[] objs = new Object[2];
-		FieldFilter.create(Article.class, "(^id|title|parentTitle|previewImg|modifyDate$)").run(new Atom() {
-			public void run() {
-				objs[0] =  dao.searchByPage(Article.class,Cnd.where("typeid", "=", 7).or("typeid", "=", 8).and("previewImg", "!=", "''").desc("clickNum").desc("modifyDate"), 1, 4);//图文
-				objs[1] =  dao.searchByPage(Article.class,Cnd.where("typeid", "=", tempTypeId).desc("clickNum").desc("modifyDate"), 1, 10);//右边点击排行
-			}
-		});
-		List<Article> articleHots=(List<Article>)objs[1];
-		//文章详情和文章列表右下角的  广告位
-		List<NewsTemplate> posters= dao.search(NewsTemplate.class, Cnd.where("type", "=", 8));
-		List<Article> imgAndArticle=(List<Article>)objs[0];
-		
-		req.setAttribute("articleHots", articleHots);
-		req.setAttribute("imgAndArticle", imgAndArticle);
 		req.setAttribute("article", article);
-		req.setAttribute("posters", posters);
 		return new JspView("page.articleDetail");
 	}
+
+    @At("/article/Service")
+    public View getService(@Param("typeid")Integer typeid,Ioc ioc,HttpServletRequest req){
+        List<Article> atc=null;
+
+        if (typeid==7){
+            atc=dao.search(Article.class,Cnd.where("typeid","=",7));
+        }
+        if (typeid==8){
+            atc=dao.search(Article.class,Cnd.where("typeid","=",8));
+        }
+        if (typeid==9){
+            atc=dao.search(Article.class,Cnd.where("typeid","=",9));
+        }
+        Article article=atc.get(0);
+        req.setAttribute("article", article);
+        return new JspView("page.articleDetail");
+    }
 	
 }
 

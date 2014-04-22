@@ -36,7 +36,7 @@
 	<a href="" target="_self"><img src="${ctx}/matter/images/logo.jpg" alt="logo" /></a>
 	<nav id="navigation" >
 		<ul>
-			<li ><a href="index.html">网站首页</a></li>
+			<li ><a href="${ctx}/index">网站首页</a></li>
 			<li><a href="news.html">新闻资讯</a></li>
 			<li><a href="gallery.html">案例展示</a></li>
 			<li><a href="content.html">服务支持</a></li>
@@ -49,33 +49,36 @@
 <!-- 代码开始 -->
 <div id="js_banner" class="banner">
 	<ul id="js_banner_img" class="banner_img clear">
-		<li class="bgli01">
+		<li class="bgli01" style=" background:#2a95bb url(${indexPic[0].imgUrl}) center no-repeat;">
 			<div class="banner_inner">
-				<div class="child child2" ><a href="http://www.lanrentuku.com" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
+				<div class="child child2" >
+                    <a href="${indexPic[0].newsLink}" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
 			</div>
 			<div class="clear"></div>
 		</li>
-		<li class="bgli02" >
+        <li class="bgli02" style=" background:#2a95bb url(${indexPic[1].imgUrl}) center no-repeat;">
 			<div class="banner_inner">
+				<div class="child child2" >
+                    <a href="${indexPic[1].newsLink}" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
+			</div>
+			<div class="clear"></div>
+		</li>
+        <li class="bgli03" style=" background:#2a95bb url(${indexPic[2].imgUrl}) center no-repeat;">
+			<div class="banner_inner">
+				<div class="child child2" >
+                    <a href="${indexPic[2].newsLink}" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
+			</div>
+			<div class="clear"></div>
+		</li>
+        <li class="bgli04" style=" background:#2a95bb url(${indexPic[3].imgUrl}) center no-repeat;">
+			<div class="banner_inner">
+				<div class="child child2" >
+                    <a href="${indexPic[3].newsLink}" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
+			</div>
+			<div class="clear"></div>
+		</li>
 
-				<div class="child child2" ><a href="http://www.lanrentuku.com" target="_blank"><!--<img src="images/banner3-0.jpg" />--></a></div>
-			</div>
-			<div class="clear"></div>
-		</li>
-		<li class="bgli03">
-			<div class="banner_inner">
 
-				<div class="child child2" ><a href="http://www.lanrentuku.com" target="_blank"><!--<img src="images/banner4-0.jpg" />--></a></div>
-			</div>
-			<div class="clear"></div>
-		</li>
-		<li class="bgli04">
-			<div class="banner_inner">
-
-				<div class="child child2"><a href="http://www.lanrentuku.com" target="_blank"><!--<img src="images/banner.jpg" />--></a></div>
-			</div>
-			<div class="clear"></div>
-		</li>
 	</ul>
 </div>
 <!-- 代码结束 -->

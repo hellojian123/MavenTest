@@ -21,6 +21,6 @@ public class UserAction {
 		}else{
 			System.out.println("failed");
 		}
-		return new JspView("officialwebsite.index");
+		return new JspView("page.index");
 	}
 }

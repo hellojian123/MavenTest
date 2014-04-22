@@ -12,7 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>无标题文档</title>
+	<title>${webName}</title>
 	<link rel="stylesheet" href="${ctx}/matter/css/reset.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/index.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/lrtk.css" type="text/css"/>
@@ -32,9 +32,9 @@
 				<p>艾软科技为客户提供优质的解决方案和服务，我们善长网站设计、制作、开发。良好的服务态度及形象获得了许多客户及业内的好评。</p>
 			</div>
 			<ul>
-				<li><a href="#"><img src="images/ser1.jpg" alt="" /><br><p>网站建设</p></a></li>
-				<li><a href="#"><img src="images/ser1.jpg" alt="" /><br><p>客户端建设服务</p></a></li>
-				<li class="no_margin"><a href="#"><img src="images/ser1.jpg" alt="" /><br><p>OA系统</p></a></li>
+				<li><a href="${ctx}/article/Service?typeid=7"><img src="${ctx}/matter/images/ser1.jpg" alt="" /><br><p>网站建设</p></a></li>
+				<li><a href="${ctx}/article/Service?typeid=8"><img src="${ctx}/matter/images/ser1.jpg" alt="" /><br><p>客户端建设服务</p></a></li>
+				<li class="no_margin"><a href="${ctx}/article/Service?typeid=9"><img src="${ctx}/matter/images/ser1.jpg" alt="" /><br><p>OA系统</p></a></li>
 			</ul>
 		</div><!--service end-->
 		<div class="clear"></div>
@@ -48,14 +48,9 @@
 			<div class="box">
 				<div class="picbox">
 					<ul class="piclist mainlist">
-						<li><a href="/" target="_blank"><img src="images/case/case10.jpg" width="225" height="125" /></a></li>
-						<li><a href="/" target="_blank"><img src="images/case/case20.jpg" /></a></li>
-						<li><a href="/" target="_blank"><img src="images/case/case30.jpg" /></a></li>
-						<li><a href="/" target="_blank"><img src="images/case/case40.jpg" /></a></li>
-						<li><a href="/" target="_blank"><img src="images/case/case10.jpg" /></a></li>
-						<li><a href="/" target="_blank"><img src="images/case/case20.jpg" /></a></li>
-						<li><a href="/" target="_blank"><img src="images/case/case30.jpg" /></a></li>
-						<li><a href="/" target="_blank"><img src="images/case/case40.jpg" /></a></li>
+                        <c:forEach var="sucCase" items="${sucCase}" varStatus="status">
+						    <li><a href="/" target="_blank" title="${sucCase.title}"><img src="${sucCase.previewImg}"/></a></li>
+                        </c:forEach>
 					</ul>
 					<ul class="piclist swaplist"></ul>
 				</div>
@@ -73,11 +68,9 @@
 					<h3>新闻动态<span>/NEWS</span></h3>
 				</div>
 				<ul>
-					<li><a href="" target="_blank">可配置向左或者向右滚动</a><span>2014-01-01</span></li>
-					<li><a href="" target="_blank">可配置向左或者向右滚动</a><span>2014-01-01</span></li>
-					<li><a href="" target="_blank">可配置向左或者向右滚动</a><span>2014-01-01</span></li>
-					<li><a href="" target="_blank">可配置向左或者向右滚动</a><span>2014-01-01</span></li>
-					<li><a href="" target="_blank">可配置向左或者向右滚动</a><span>2014-01-01</span></li>
+                    <c:forEach var="newsList" items="${newsList}" varStatus="status">
+					    <li><a href="${ctx}/article/getArticleById?articleId=${newsList.id}" target="_blank">${newsList.title}</a><span><fmt:formatDate value="${newsList.modifyDate}" pattern="hh-MM-ss"/></span></li>
+                    </c:forEach>
 				</ul>
 			</div>
 			<div class="comp">
@@ -86,8 +79,12 @@
 				</div>
 				<a href="" target="_blank"><img src="${ctx}/matter/images/comp.jpg" /></a>
 				<p>
-					Facebook 20亿美元收购——虚拟现实这次将真的走进你我的生活。Oculus Rift创造者Palmer Luckey接受了《程序员》专访，
-					讲述Oculus背后的故事与HMD关键技术。
+                    <c:if test="${fn:length(ht:delHTMLTag(compIntroduce.content)) > 80}">
+                        ${fn:substring(ht:delHTMLTag(compIntroduce.content),0,80) }...
+                    </c:if>
+                    <c:if test="${fn:length(ht:delHTMLTag(compIntroduce.content)) <= 80}">
+                        ${ht:delHTMLTag(compIntroduce.content)}
+                    </c:if>
 				</p>
 			</div>
 			<div class="clear"></div>

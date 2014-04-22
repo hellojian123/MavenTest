@@ -25,7 +25,7 @@ public class ArticleAction extends BaseAction {
 	@At("/article/queryArticleListById")
 	public View queryArticleListById1(@Param("currentPage") Integer currentPage,@Param("typeid") Integer typeid,Ioc ioc,HttpServletRequest request){
 		if(currentPage==null){currentPage=1;}
-		int pageSize=SystemContext.PAGE_SIZE+10;//每页显示十条数据
+		int pageSize=SystemContext.PAGE_SIZE;//每页显示十条数据
 		int count = dao.searchCount(Article.class,Cnd.where("typeid", "=", typeid));//获取指定类型的文章总数
 		int maxPage = dao.maxPageSize(count, pageSize);
 		if(currentPage>maxPage){
@@ -34,33 +34,40 @@ public class ArticleAction extends BaseAction {
 		final Integer tempTypeId=typeid;
 		final Integer tempCurrentPage=currentPage;
 		final Integer tempPageSize=pageSize;
-		final Object[] objs = new Object[3];//与
-		FieldFilter.create(Article.class, "(^id|title|parentTitle|typeid|previewImg|modifyDate$)").run(new Atom() {
-			public void run() {
-				objs[0] =  dao.searchByPage(Article.class,Cnd.where("typeid", "=", tempTypeId).desc("modifyDate"), tempCurrentPage, tempPageSize);//列表                                            
-				objs[1] =  dao.searchByPage(Article.class,Cnd.where("typeid", "=", tempTypeId).desc("clickNum").desc("modifyDate"), 1, 10);//右边点击排行
-			}
-		});
-		List<Article> articles=(List<Article>)objs[0];
-		List<Article> articleHots=(List<Article>)objs[1];
+		final Object[] objs = new Object[1];
+		objs[0] =  dao.searchByPage(Article.class,Cnd.where("typeid", "=", tempTypeId).desc("modifyDate"), tempCurrentPage, tempPageSize);//文章列表
 
+		List<Article> articles=(List<Article>)objs[0];
+
+		String parentTitle = articles.get(0).getParentTitle();
 		PageModel<Article> pm = new PageModel<Article>(articles, maxPage);
 		pm.setCurPage(currentPage);
 
-		request.setAttribute("articleHots", articleHots);
+		request.setAttribute("parentTitle",parentTitle);
 
 		request.setAttribute("articles",articles);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("typeid", typeid);
 		request.setAttribute("pm", pm);
-		return new JspView("page.articleList");
-		
+
+		if(typeid==1||typeid==2){
+			return new JspView("page.articleList");//返回到新闻资讯列表
+		}
+		if(typeid==3){
+			return new JspView("page.caseList");//返回到案例展示列表
+		}
+		if(typeid==5||typeid==6||typeid==10||typeid==7||typeid==8||typeid==9){
+			request.setAttribute("article",articles.get(0));
+			return new JspView("page.articleDetail");//返回到服务支持页面
+		}
+		request.setAttribute("article",articles.get(0));
+		return new JspView("page.about");//返回到关于我们页面
 	}
-	
+
+
 	/**
 	 * 模糊查询文章
 	 */
-	
 	@At("/likeSearchArticle")
 	public View likeSearchArticle(@Param("currentPage") Integer currentPage,@Param("typeid") Integer typeid,@Param("articleName")String articleName,Ioc ioc,HttpServletRequest request){
 		if(currentPage==null){currentPage=1;}
@@ -150,8 +157,15 @@ public class ArticleAction extends BaseAction {
 	public View getArticleById(@Param("articleId")Integer articleId,Ioc ioc,HttpServletRequest req){
 		Article article=dao.find(articleId, Article.class);
 		article.setClickNum(article.getClickNum()+1);
-		dao.update(article);
+
+		article = dao.find(articleId, Article.class);
+		Integer typeid = article.getTypeid();
+		String parentTitle = article.getParentTitle();
+		
 		req.setAttribute("article", article);
+		req.setAttribute("typeid", typeid);
+		req.setAttribute("parentTitle", parentTitle);
+
 		return new JspView("page.articleDetail");
 	}
 

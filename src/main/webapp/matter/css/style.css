@@ -26,7 +26,8 @@
 ._cont_main ul li h4{color:#125fad;display:inline-block;width:400px !important;}
 ._cont_main ul li span{float:right;color:#125fad;}
 ._cont_main ul li p{text-indent:20px;color:#747373; font-family:Verdana, Geneva, sans-serif;}
-._cont_main ul li p a{color:#F00;}
+._cont_main ul li p a{/*color:#F00;*/}
+._cont_main ul li p a:hover{color:#43B12B}
 
 
 /*------------------------新闻列表---------------------------------------------------------------*/

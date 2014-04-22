@@ -31,17 +31,10 @@
 			<!-- - - - - - - - - - - - - - _cont_main - - - - - - - - - - - - - - - - -->
 			<div class="_cont_main">
 				<div class="main_header">
-					<p>最新动态<span>NEWS</span></p>
-					<span>你现在的位置：首页><c:if test="${article.typeid==7}">网站建设</c:if>
-                                              <c:if test="${article.typeid==8}">系统开发</c:if>
-                                               <c:if test="${article.typeid==9}">APP开发</c:if>
-                                                <c:if test="${article.typeid==1}">最新动态</c:if>>
-                                            <c:if test="${fn:length(ht:delHTMLTag(article.title)) > 10}">
-                                                ${fn:substring(ht:delHTMLTag(article.title),0,10) }...
-                                            </c:if>
-											<c:if test="${fn:length(ht:delHTMLTag(article.title)) <= 10}">
-                                                ${ht:delHTMLTag(article.title)}
-                                            </c:if></span>
+
+					<p>${parentTitle}<span>NEWS</span></p>
+					<span>你现在的位置：首页>${parentTitle}>${article.title}</span>
+
 					<div class="clear"></div>
 				</div>
 
@@ -50,18 +43,14 @@
 					<div class="content_tit">
 						<h4>${article.title}</h4>
 						<ul>
-							<li>发布时间：
-                                <fmt:formatDate value="${article.modifyDate}" pattern="hh:MM:ss"/></li>
-							<li>来源：<c:if test="${empty article.source}">原创</c:if>
-                                     <c:if test="${!empty article.source}">${article.source}</c:if>
-                            </li>
+							<li>发布时间：<fmt:formatDate value="${article.modifyDate}" pattern="yyyy:MM:dd"/></li>
+							<li>来源：<c:if test="${empty article.source}">原创</c:if><c:if test="${!empty article.source}">${article.source}</c:if></li>
 							<li>编辑：${article.author}</li>
 						</ul>
 						<div class="clear"></div>
 					</div>
-
 					<p>
-                       ${ ht:delHTMLTag(article.content)}
+						${article.content}
 					</p>
 
 				</div>

@@ -64,6 +64,20 @@ public class Article implements Serializable {
 	 */
 	@Column
 	private int typeid;// 1公司新闻   2行业动态   3成功案例    4公司介绍    5人才招聘    6业务体系  7网站建设  8系统开发  9 APP开发  10业务流程
+	/**
+	 * 文章所属分类名字
+	 */
+	@Column
+	private String parentTitle;//文章所属分类名字
+
+	public String getParentTitle() {
+		return parentTitle;
+	}
+
+	public void setParentTitle(String parentTitle) {
+		this.parentTitle = parentTitle;
+	}
+
 	public Integer getId() {
 		return id;
 	}

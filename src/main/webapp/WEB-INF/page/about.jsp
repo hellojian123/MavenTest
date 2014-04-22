@@ -30,27 +30,25 @@
 			<!-- - - - - - - - - - - - - - _cont_main - - - - - - - - - - - - - - - - -->
 			<div class="_cont_main">
 				<div class="main_header">
-					<p>最新动态<span>NEWS</span></p>
-					<span>你现在的位置：首页>关于我们>最新动态</span>
+					<p>${parentTitle}<span>NEWS</span></p>
+					<span>你现在的位置：首页>关于我们>${parentTitle}</span>
 					<div class="clear"></div>
 				</div>
 				<!-- - - - - - - - - - - - - - _cont_main ul - - - - - - - - - - - - - - - - -->
 				<div class="content">
 					<div class="content_tit">
-						<h4>网站建设与优化报价基本准则</h4>
+						<h4>${article.title}</h4>
 						<div class="clear"></div>
 					</div>
 
 					<p>
-						相比网站建设与优化报价基本准则网站建设与优化报价基本准则网比网站建设与优化报价基本准则网站建设与优化报价基本准
-						则网站建设与优化报比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报比网站建设与优化报价基
-						本准则网站建设与优化报价基本准与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则
+						${article.content}
 					</p>
 					<ul class="no_border">
 						<li>业务咨询：0755-61829391、0755-61829392、0755-33133167、0755-33133168</li>
 						<li>客服邮箱：kefu@tiandixin.net/kefu@heartcom.cn</li>
 						<li>公司地址：成都市一环路东段</li>
-						<li>邮编：518109</li>
+						<li>邮编：610000</li>
 					</ul>
 				</div>
 				<div class="clear"></div>
@@ -73,7 +71,7 @@
 					//创建地图函数：
 					function createMap(){
 						var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-						var point = new BMap.Point(104.038989,30.675331);//定义一个中心点坐标
+						var point = new BMap.Point(104.100032,30.65044);//定义一个中心点坐标
 						map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
 						window.map = map;//将map变量存储在全局
 					}
@@ -100,7 +98,7 @@
 					}
 
 					//标注点数组
-					var markerArr = [{title:"成都铭高科技有限公司",content:"成都市青羊区清江东路134号中开大厦16楼28号<br/>电话：028-87773069",point:"104.038769|30.674973",isOpen:1,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+					var markerArr = [{title:"成都艾软信息技术有限公司",content:"成都市东恒国际1栋<br/>电话：18284091520",point:"104.100032|30.65044",isOpen:1,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
 					];
 					//创建marker
 					function addMarker(){

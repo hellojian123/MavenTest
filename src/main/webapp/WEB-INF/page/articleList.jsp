@@ -17,10 +17,13 @@
 	<link rel="stylesheet" href="${ctx}/matter/css/index.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/style.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/lrtk.css" type="text/css"/>
+	<link rel="stylesheet" href="${ctx}/matter/css/fenye.css" type="text/css"/>
 
 	<script type="text/javascript" src="${ctx}/matter/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/global.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/tab.js"></script>
+	<script type="text/javascript" src="${ctx}/matter/js/script.js"></script>
+
 </head>
 
 <body>
@@ -31,57 +34,35 @@
 			<!-- - - - - - - - - - - - - - _cont_main - - - - - - - - - - - - - - - - -->
 			<div class="_cont_main">
 				<div class="main_header">
-					<p>最新动态<span>NEWS</span></p>
-					<span>你现在的位置：首页>关于我们>最新动态</span>
+					<p>${parentTitle}<span>NEWS</span></p>
+					<span>你现在的位置：首页>${parentTitle}</span>
 					<div class="clear"></div>
 				</div>
 				<!-- - - - - - - - - - - - - - _cont_main ul - - - - - - - - - - - - - - - - -->
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
-				<ul>
-					<li><a href="" target="_blank"><h4>网站建设与优化报价基本准则</h4></a><span>2013-08-14</span>
-						<p>相比网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则网站建设与优化报价基本准则<a href="" target="_blank">【查看更多】</a></p></li>
-				</ul>
-
-				<div class="clear"></div>
+				<c:forEach items="${pm.result}" var="arti">
+					<ul>
+						<li><a href="${ctx}/article/getArticleById?articleId=${arti.id}" target="_blank"><h4>${arti.title}</h4></a><span><fmt:formatDate value="${arti.modifyDate}" pattern="yyyy-MM-dd"/> </span>
+							<p>
+								<c:if test="${fn:length(ht:delHTMLTag(arti.content)) > 90}">
+									${fn:substring(ht:delHTMLTag(arti.content),0,90) }...
+								</c:if>
+								<c:if test="${fn:length(ht:delHTMLTag(arti.content)) <= 90}">
+									${ht:delHTMLTag(arti.content)}
+								</c:if>
+								<br/>
+								<a href="${ctx}/article/getArticleById?articleId=${arti.id}" target="_blank" style="float: right">[查看详情]</a>
+								<div style="height: 5px"/>
+							</p>
+						</li>
+					</ul>
+					<div class="clear"></div>
+				</c:forEach>
 				<!-- - - - - - - - - - - - - - _cont_main  ul- - - - - - - - - - - - - - - - -->
 				<!-- ------------------------分页list----------------------------------------------------------------->
-				<div class="list">
-					<a href="#">上一页</a>
-					<a href="#"><span>1</span></a>
-					<a href="#"><span>2</span></a>
-					<a href="#"><span>3</span></a>
-					<a href="#"><span>4</span></a>
-					<a href="#"><span>5</span></a>
-					<a href="#">下一页</a>
-				</div>
+				<div id="page" class="yahoo2" style="margin-top: 25px"></div>
+				<script type="text/javascript">
+					$("#page").html(fenyeComment("${pm.maxPage}","${currentPage}","${ctx}/article/queryArticleListById","typeid=${typeid}"));
+				</script>
 				<!-- ------------------------分页list----------------------------------------------------------------->
 			</div>
 			<div class="clear"></div>

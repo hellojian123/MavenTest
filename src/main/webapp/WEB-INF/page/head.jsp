@@ -37,10 +37,10 @@
 	<nav id="navigation" >
 		<ul>
 			<li ><a href="${ctx}/index">网站首页</a></li>
-			<li><a href="news.html">新闻资讯</a></li>
-			<li><a href="gallery.html">案例展示</a></li>
-			<li><a href="content.html">服务支持</a></li>
-			<li><a href="about.html">关于我们</a></li>
+			<li><a href="${ctx}/article/queryArticleListById?typeid=1">新闻资讯</a></li>
+			<li><a href="${ctx}/article/queryArticleListById?typeid=3">案例展示</a></li>
+			<li><a href="${ctx}/article/queryArticleListById?typeid=6">服务支持</a></li>
+			<li><a href="${ctx}/article/queryArticleListById?typeid=4">关于我们</a></li>
 		</ul>
 	</nav><!--/ #navigation-->
 	<div class="clear"></div>

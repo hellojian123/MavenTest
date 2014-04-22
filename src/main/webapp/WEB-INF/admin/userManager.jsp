@@ -47,8 +47,7 @@
 			});
 		});
 				function delById(userId,username){
-					var sure=confirm("确认删除用户名为"+username+"的用户吗？");
-					if(sure){
+					if(confirm("确认删除用户名为【"+username+"】的用户吗？")){
 						$.post("${ctx}/admin/user/deleteUserById",{userId:userId},function(data){
 							if(data=="0"){
 								alert("删除成功！");
@@ -58,7 +57,6 @@
 							}
 						});
 					}
-					return false;
 				};
 				
 		var userid="";

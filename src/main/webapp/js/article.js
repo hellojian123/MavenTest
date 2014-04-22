@@ -1,102 +1,65 @@
-/*
- * 加载选择的数据信息
- * @param {Object} prefix
- */
-function load(prefix){
-	//文章分类
-	var typeurl=prefix+"/admin/articletype/all";
-	$.post(typeurl,null,function(data){
-		var o = eval("("+data+")");
-		$(o).each(function(){
-			$("#typeid").append("<option value='"+this.id+"'>"+this.name+"</option>");
-		});
-	},'json');
-	
-	//文章详细模版信息
-	var templateurl = prefix+"/admin/templete/bytype";
-	$.post(templateurl,{type:2},function(data){
-		var o = eval("("+data+")");
-		$(o).each(function(){
-			$("#styleid").append("<option value='"+this.id+"'>"+this.templeteName+"</option>");
-		});
-	},'json');
-	
-	//获取网站导航的数据信息
-	var navurl = prefix+"/admin/navmodel/json";
-	$.post(navurl,null,function(data){
-		var o = eval("("+data+")");
-		var str = process(o[0],'');
-		$("#navid").append(str);
-		
-		//添加搜索框数据
-		var s = processdd(o[0],'');
-		$("#navid2").append(s);
-		
-	},'json');
-}
+var articleid="";
+var title="";
+var content="";
+var imgUrl="";
+var articleType="";
+var keywords="";
+var source="";
+
 /**
- * 设置导航数据显示的样式
- * @param {Object} o
- * @param str
+ * 客户端校验输入数据
+ * @returns {boolean}
  */
-function process(o,str){
-	var option="<option value='"+o.id+"'>"+str+o.text+"</option>";
-	if(o.children){
-		$(o.children).each(function(){
-			option += process(this,str+"——");
-		});
-	}
-	return option;
+function validate(){
+    title=$("#title").val();
+    content=editor.html();
+    var main=$("#main").css("display");
+    if(main=="block"){//说明当前显示的是文章类型主模块
+        articleType=$("#articleType").val();
+    }else{
+        articleType=$("#articleTypeMinor").val();
+    }
+    if($.trim(title)==""){
+        alert("标题不能为空！");
+        return false;
+    }
+    if($.trim(content)==""){
+        alert("内容不能为空！");
+        return false;
+    }
+    var display=$("#previewImgP").css("display");
+    if($.trim(display)=='block'){
+        imgUrl=$("#imgUrlAddress").attr("src");
+        if(imgUrl==""){
+            alert("请上传该成功案例的预览图！");
+            return false;
+        }
+    }
+    if($.trim(title).length>30){
+        alert("标题字数不能超过30个！");
+        return false;
+    }
+    if(articleType=="0"){
+        alert("请选择文章所属模块！");
+        return false;
+    }
+    keywords=$("#keywords").val();
+    source=$("#source").val();
+    return true;
 }
 
-
-///////////////删除 修改//////////////////////////////////
-/*
- * 根据id删除数据
- * @param {Object} id
- */
-function delById(prefix,id){
-	
-	if(!window.confirm("你确定要删除这条数据吗？删除过后不可恢复")){
-		return ;
-	}
-	
-	var args = location.search;   
-    var reg = new RegExp('[\?&]?currentPage=([^&]*)[&$]?', 'gi');   
-    var chk = args.match(reg);   
-   	var currentPage = RegExp.$1; 
-   	
-   	var arr = new Array();
-   	arr[0] = $("#r"+id);
-   	
-	var url=prefix+"/admin/article/del";
-	
-	$.post(url,{"id":id,"currentPage":currentPage},function(data){
-		
-		var o = eval("("+data+")");
-		
-		processRemove(arr,o,prefix);
-		
-	},'json');
-	
-}
-/*
+/**
  * 根据多个id删除数据
  * @param {Object} prefix
  */
 function delByIds(prefix){
-	
 	var args = location.search;   
     var reg = new RegExp('[\?&]?currentPage=([^&]*)[&$]?', 'gi');   
     var chk = args.match(reg);   
-   	var currentPage = RegExp.$1; 
-   	
+   	var currentPage = RegExp.$1;
 	var ids="";
-	
 	var i=0;
-	
 	var arr = new Array();
-	
 	$("input[type='checkbox']").each(function(){
 		if($(this).attr("checked")){
 			if($(this).val()!="on"&&this.name=='xidx'){
@@ -117,74 +80,41 @@ function delByIds(prefix){
 		location.href=prefix+"/admin/article/batchDeleteArticleById?ids="+ids+"&currentPage="+currentPage;
 	}
 }
-
 /**
- * 处理删除数据的界面显示
- * @param {Object} arr
- * @param {Object} o
- * @memberOf {TypeName} 
- */
-function processRemove(arr,o,prefix){
-	
-	//在界面上删除那些选中的内容
-			$(arr).each(function(){
-				$(this).remove();
-			});
-			//获取剩下的所有tr
-			var i=1;
-			$("#datalist").find("tr").each(function(){
-				//获取所有的td 并重新 给第二个td赋值
-				var td = $(this).find("td").slice(1,2);
-				$(td).html(i);
-				i++;
-			});
-		
-		if(o.length>0){
-			for(var j=0;j<o.length;j++){		
-				var a = o[j];
-				var filter = new FilterHTML();
-				var tr = "<tr id='r"+a.id+"'>" +
-						"<td><input type='checkbox' value='"+a.id+"'></td>" +
-						"<td>1</td>" +
-						"<td>"+a.title.substring(0,10)+"</td>" +
-						"<td>"+a.keywords.substring(0,8)+"</td>" +
-						"<td>"+filter.substring(a.content,0,20)+"...</td>" +
-						"<td>"+a.createDate+"</td>" +
-						"<td>"+
-							"<a href=\"javascript:delById('"+prefix+"',"+a.id+");\" title='删除文章分类信息'><img src='"+prefix+"/images/icons/cross.png' alt='删除文章分类信息' /></a>"+
-							"<a href=\"javascript:edit('"+prefix+"',"+a.id+");\" title='修改文章分类信息'><img src='"+prefix+"/images/icons/hammer_screwdriver.png' alt='修改文章分类信息' /></a>"+
-						"</td>"+
-					"</tr>";
-			
-				$("#datalist").append(tr);
-				i++;
-			}
-			
-		}
-}
-
-/*
  * 修改文章信息
  * @param {Object} prefix
  * @param {Object} id
  */
 function edit(prefix,id,editor){
-	var url=prefix+"/admin/article/find";
-	$.getJSON(url,{"id":id},function(data){
-			data=$.parseJSON(data);
-			$("#articleid").val(data.id);
-			$("#title").val(data.title);
-			editor.html(data.content);
-			$("#keywords").val(data.keywords);
-			$("#source").val(data.source);
-			$("#articleType").val(data.typeid);
-			var a = $('.content-box ul.content-box-tabs li a');
-			$(a).parent().siblings().find("a").removeClass('current');
-			$(a).addClass('current');
-			$("#role").html("修改文章信息");
-			$(".default-tab").removeClass('current');
-			$("#tab1").hide(); 
-			$("#tab2").show();
-	});
-	
+    var url=prefix+"/admin/article/find";
+    $.getJSON(url,{"id":id},function(data){
+        data=$.parseJSON(data);
+        $("#articleid").val(data.id);
+        $("#title").val(data.title);
+        editor.html(data.content);
+        $("#keywords").val(data.keywords);
+        $("#imgUrlAddress").attr("src",data.previewImg);
+        $("#source").val(data.source);
+        if(data.typeid!=1&&data.typeid!=2&&data.typeid!=3&&data.typeid!=11){// 除公司新闻   行业动态  成功案例以外的其他新闻
+            $("#articleTypeMinor").val(data.typeid);
+            $('#main').css('display','none');
+            $('#minor').css('display','block');
+        }else{//公司新闻   行业动态  媒体资讯   成功案例
+            $("#articleType").val(data.typeid);
+            $('#minor').css('display','none');
+            $('#main').css('display','block');
+            if(data.typeid==3){
+                $("#previewImgP").css("display","block");
+            }
+        }
+        var a = $('.content-box ul.content-box-tabs li a');
+        $(a).parent().siblings().find("a").removeClass('current');
+        $(a).addClass('current');
+        $("#role").html("修改文章");
+        $(".default-tab").removeClass('current');
+        $("#tab1").hide();
+        $("#tab2").show();
+    });
 }
+
+

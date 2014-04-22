@@ -9,12 +9,11 @@ import org.nutz.mvc.annotation.Param;
 import org.nutz.mvc.view.JspView;
 
 import com.bean.User;
-import com.dao.UserDao;
 
-public class UserAction {
+
+public class UserAction extends BaseAction{
 	@At("/saveUser")
 	public View saveUser(@Param("::user.")User user,Ioc ioc , HttpServletRequest request){
-		UserDao dao=new UserDao(ioc);
 		User user2=dao.save(user);
 		if(user2!=null){
 			System.out.println("success");

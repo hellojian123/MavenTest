@@ -24,7 +24,7 @@ public class indexAction extends BaseAction  {
         final  Object objs[]=new Object[2];
         FieldFilter.create(Article.class, "(^id|title$)").run(new Atom() {
             public void run() {
-                objs[0]=dao.searchByPage(Article.class, Cnd.where("typeid", "=", 1).desc("modifyDate"), 1, 9);//新闻动态5
+                objs[0]=dao.searchByPage(Article.class, Cnd.where("typeid", "=", 1).desc("modifyDate"), 1, 6);//新闻动态5
             }
         });
         FieldFilter.create(Article.class, "(^id|title|previewImg$)").run(new Atom() {
@@ -36,8 +36,8 @@ public class indexAction extends BaseAction  {
         List<Article>  newsList= (List<Article>) objs[0];
         List<Article>  sucCase= (List<Article>) objs[1];
         Article compIntroduce =dao.findByCondition(Article.class, Cnd.where("typeid", "=", 4));//公司
-         req.setAttribute("newsList",newsList);
-         req.setAttribute("sucCase",sucCase);
+        req.setAttribute("newsList",newsList);
+        req.setAttribute("sucCase",sucCase);
         req.setAttribute("compIntroduce",compIntroduce);
         return new JspView("page.index");
 	}

@@ -2,9 +2,8 @@ package com.bean;
 
 import java.io.Serializable;
 import java.util.Date;
-import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Id;
-import org.nutz.dao.entity.annotation.Table;
+
+import org.nutz.dao.entity.annotation.*;
 
 @Table("t_user")
 public class User implements Serializable{
@@ -13,42 +12,51 @@ public class User implements Serializable{
 	private Integer id;
 	
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 10)
 	private String  name;	//真实姓名
 
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 10)
 	private String username;//用户名
 	
 	@Column
+    @ColDefine(type = ColType.CHAR,width = 32)
 	private String password;
-
 	@Column
-	private Date    birthday;
+    @ColDefine(type = ColType.DATE)
+	private Date birthday;
 	
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 30)
 	private String address;
 	
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 30)
 	private String email;
 	
 	/*
 	 * 上次登录时间
 	 */
 	@Column
+    @ColDefine(type = ColType.DATE)
 	private Date lastLoginTime;
 	/*
 	 * 本次登录时间
 	 */
 	@Column
+    @ColDefine(type = ColType.DATE)
 	private Date currentLoginTime;
 	/*
 	 * 上次登录IP
 	 */
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 100)
 	private String lastLoginIp;
 	/*
 	 * 本次登录IP
 	 */
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 100)
 	private String currentLoginIp;
 	
 	/*

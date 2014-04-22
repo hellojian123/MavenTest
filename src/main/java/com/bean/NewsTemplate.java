@@ -2,9 +2,7 @@ package com.bean;
 
 import java.io.Serializable;
 
-import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Id;
-import org.nutz.dao.entity.annotation.Table;
+import org.nutz.dao.entity.annotation.*;
 
 @Table("t_newsAndPoster")
 public class NewsTemplate implements Serializable {
@@ -12,10 +10,13 @@ public class NewsTemplate implements Serializable {
 	@Id
 	private int id;
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 30)
 	private String title;//图片标题
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 60)
 	private String imgUrl;//图片地址
 	@Column
+    @ColDefine(type = ColType.VARCHAR,width = 200)
 	private String newsLink;//图片所指向的链接
 	@Column
 	private int type;//图片类型，1为首页滚动图片,2首页新闻图片

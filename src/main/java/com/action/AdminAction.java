@@ -22,16 +22,13 @@ import com.bean.Article;
 import com.bean.FriendLinks;
 import com.bean.NewsTemplate;
 import com.bean.User;
-import com.dao.ArticleDao;
-import com.dao.NewsTemplateDao;
-import com.dao.UserDao;
 import com.google.gson.Gson;
 import com.util.DeleteImgByHtml;
 import com.util.MD5;
 import com.util.PageModel;
 import com.util.SystemContext;
 
-public class AdminAction {
+public class AdminAction extends BaseAction{
 	
 	/**
 	 * 获取管理员的username
@@ -58,9 +55,8 @@ public class AdminAction {
 		if(username==null||password==null){
 			return new JspView("admin.login");
 		}
-		UserDao userDao=new UserDao(ioc);
 		password=new MD5().getMD5ofStr(password);
-		User user=userDao.findByCondition(User.class, Cnd.where("username", "=", username).and("password", "=", password));
+		User user=dao.findByCondition(User.class, Cnd.where("username", "=", username).and("password", "=", password));
 		if(user!=null){
 			if(user.getUserType()==0){
 				req.setAttribute("error", "您只是普通用户,没有权限进入后台管理系统！");
@@ -71,7 +67,7 @@ public class AdminAction {
 			user.setCurrentLoginTime(new Date());
 			user.setLastLoginIp(user.getCurrentLoginIp());
 			user.setCurrentLoginIp(req.getRemoteAddr());
-			userDao.update(user);
+			dao.update(user);
 			req.getSession().setAttribute("admin", user);
 			return new JspView("admin.index");
 		}else{
@@ -88,7 +84,6 @@ public class AdminAction {
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public String saveLink(@Param("linkName")String linkName,@Param("linkUrl")String linkUrl, Ioc ioc) {
 		try{
-			UserDao dao = new UserDao(ioc);
 			FriendLinks link=new FriendLinks();
 			link.setLinkName(linkName);
 			link.setLinkUrl(linkUrl);
@@ -109,7 +104,6 @@ public class AdminAction {
 	@Ok("raw")
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public String deleteLinkById(@Param("id")Integer id, Ioc ioc) {
-		UserDao dao = new UserDao(ioc);
 		if(dao.delById(id,FriendLinks.class)){
 			return "0";
 		}else{
@@ -130,7 +124,6 @@ public class AdminAction {
 	@At("/admin/friendLinksUI")
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public View friendLinksUI(Ioc ioc,HttpServletRequest req){
-		UserDao dao = new UserDao(ioc);
 		List<FriendLinks> links =dao.search(FriendLinks.class, Cnd.where("1", "=", "1"));
 		req.setAttribute("links", links);
 		return new JspView("admin.friendLinks");
@@ -144,7 +137,6 @@ public class AdminAction {
 	@Ok("raw")
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public String updatepwd(@Param("userId")Integer userId,@Param("newPwd")String newPwd,@Param("oldpwd") String oldpwd, Ioc ioc,HttpServletRequest req){
-		UserDao dao = new UserDao(ioc);
 		User userTemp=dao.find(userId, User.class);
 		oldpwd=new MD5().getMD5ofStr(oldpwd);
 		if(!userTemp.getPassword().equals(oldpwd)){
@@ -165,7 +157,6 @@ public class AdminAction {
 	public View findAll(@Param("currentPage") Integer currentPage,Ioc ioc,HttpServletRequest request){
 		if(currentPage==null){currentPage=1;}
 		int pageSize=SystemContext.PAGE_SIZE;//每页显示十条数据
-		UserDao dao = new UserDao(ioc);
 		int count = dao.searchCount(User.class);//获取总用户数
 		int maxPage = dao.maxPageSize(count, pageSize);
 		if(currentPage>maxPage){
@@ -183,7 +174,6 @@ public class AdminAction {
 	@Ok("raw")
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public String saveOrUpdateUser(@Param("::user.")User user,Ioc ioc,HttpServletRequest req){
-		UserDao dao =new UserDao(ioc);
 		if(user.getId()==null){//保存
 			user.setPassword(new MD5().getMD5ofStr("123456"));
 			if(dao.save(user)!=null){
@@ -208,7 +198,6 @@ public class AdminAction {
 	@Ok("raw")
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public String deleteUserById(@Param("userId")Integer userId,Ioc ioc,HttpServletRequest req){
-		UserDao dao = new UserDao(ioc);
 		if(dao.delById(userId, User.class)){
 			return "0";
 		}else{
@@ -225,7 +214,6 @@ public class AdminAction {
 	@Ok("raw")
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public String updateUserTypeById(@Param("id")Integer id,@Param("userType")Integer userType,Ioc ioc,HttpServletRequest req){
-		UserDao dao = new UserDao(ioc);
 		User user=new User();
 		user.setId(id);
 		user.setUserType(userType);
@@ -250,7 +238,6 @@ public class AdminAction {
 		if(menuTypeId==null){menuTypeId=0;}
 		if(date==null){date="";}
 		int pageSize=SystemContext.PAGE_SIZE;//每页显示十条数据 
-		ArticleDao dao = new ArticleDao(ioc);
 		int count=0;//满足条件的数据总数
 		Cnd cnd=null;
 		if(menuTypeId==0){//用户选择的导航名是不限
@@ -299,11 +286,10 @@ public class AdminAction {
 	@At("/admin/updateNews")
 	@Ok("raw")
 	public String updateNews(@Param("::nt.")NewsTemplate nt, Ioc ioc,HttpServletRequest req){
-		NewsTemplateDao dao=new NewsTemplateDao(ioc);
         //如果用户改变图片，则删除上一张图片
         NewsTemplate oldNt=dao.find(nt.getId(), NewsTemplate.class);
         if(null!=nt.getImgUrl()&&null!=oldNt.getImgUrl()&&!nt.getImgUrl().equals(oldNt.getImgUrl())){
-           DeleteImgByHtml.deletePicture(req,oldNt.getImgUrl());
+           DeleteImgByHtml.deletePicture(req, oldNt.getImgUrl());
         }
 
 		if(dao.update(nt)){
@@ -334,7 +320,6 @@ public class AdminAction {
 	@Ok("raw")
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public String saveOrUpdateArticle(@Param("::article.")Article article,Ioc ioc,HttpServletRequest req){
-		ArticleDao dao =new ArticleDao(ioc);
 		article.setAuthor(getAdminName(req));
 		article.setModifyDate(new Date());
 		if(article.getId()==null){//保存
@@ -368,7 +353,6 @@ public class AdminAction {
 	@Ok("raw")
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public String deleteArticleById(@Param("articleId")Integer articleId,Ioc ioc,HttpServletRequest req){
-		ArticleDao dao =new ArticleDao(ioc);
 		Article article = dao.find(articleId,Article.class);
 		if(article != null){
             //删除预览图片
@@ -391,7 +375,6 @@ public class AdminAction {
 	@At("/admin/article/find")
 	@Ok("json")
 	public String getArticleById(@Param("id") int id, Ioc ioc) {
-		ArticleDao dao = new ArticleDao(ioc);
 		Article article = dao.find(id, Article.class);
 		Gson gson=new Gson();
 		return gson.toJson(article);
@@ -406,8 +389,6 @@ public class AdminAction {
 	@Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public View batchDeleteArticleById(@Param("ids")String ids,@Param("currentPage")Integer currentPage,@Param("menuTypeId")Integer menuTypeId,@Param("date")String date,Ioc ioc,
 			HttpServletRequest req,HttpServletResponse rep) throws IOException {
-		ArticleDao dao= new ArticleDao(ioc);
-
 				if(ids!=null&&!"".equals(ids)){
 					String[] arr=ids.split(",");
 					for(String id:arr){
@@ -475,18 +456,17 @@ public class AdminAction {
      * @param req
      */
     private void queryNewsAndPoster(Ioc ioc,HttpServletRequest req){
-        NewsTemplateDao ntd=new NewsTemplateDao(ioc);
         //首页滚动图片
-        List<NewsTemplate> nts=ntd.search(NewsTemplate.class, Cnd.where("type", "=", "1"));
+        List<NewsTemplate> nts=dao.search(NewsTemplate.class, Cnd.where("type", "=", "1"));
         if(nts.size()==0){//如果数据库中没有记录，则添加一条
-            addNewsAndPoster(ntd,"1");
-            nts=ntd.search(NewsTemplate.class, Cnd.where("type", "=", "1"));//增加成功后重新查一次
+            addNewsAndPoster("1");
+            nts=dao.search(NewsTemplate.class, Cnd.where("type", "=", "1"));//增加成功后重新查一次
         }
         //首页新闻图片
-        List<NewsTemplate> pts=ntd.search(NewsTemplate.class, Cnd.where("type", "=", "2"));
+        List<NewsTemplate> pts=dao.search(NewsTemplate.class, Cnd.where("type", "=", "2"));
         if(pts.size()==0){//如果数据库中没有记录，则添加一条
-            addNewsAndPoster(ntd,"2");
-            pts=ntd.search(NewsTemplate.class, Cnd.where("type", "=", "2"));//增加成功后重新查一次
+            addNewsAndPoster("2");
+            pts=dao.search(NewsTemplate.class, Cnd.where("type", "=", "2"));//增加成功后重新查一次
         }
         req.setAttribute("nts", nts);
         req.setAttribute("bigImageCount", nts.size());
@@ -497,13 +477,13 @@ public class AdminAction {
     /**
      * 增加一个新闻或滚动大图
      */
-    private void addNewsAndPoster(NewsTemplateDao ntd,String type){
+    private void addNewsAndPoster(String type){
         NewsTemplate nt=new NewsTemplate();
         nt.setType(Integer.parseInt(type));
         nt.setTitle("");
         nt.setNewsLink("");
         nt.setImgUrl("");
-        ntd.save(nt);
+        dao.save(nt);
     }
 
     /**
@@ -513,13 +493,12 @@ public class AdminAction {
      * @param ioc
      */
     private void changeNewsPicOrBigImage(int newCount,String type,Ioc ioc,HttpServletRequest request){
-        NewsTemplateDao ntd=new NewsTemplateDao(ioc);
-        List<NewsTemplate> oldList=ntd.search(NewsTemplate.class, Cnd.where("type", "=", type).desc("id"));
+        List<NewsTemplate> oldList=dao.search(NewsTemplate.class, Cnd.where("type", "=", type).desc("id"));
         int oldCount=oldList.size();
         if(newCount!=oldCount){
             if(newCount>oldCount){//如果原来的图片个数少于用户选中的图片个数则增加
                 for(int i=0;i<newCount-oldCount;i++){
-                    addNewsAndPoster(ntd,type);
+                    addNewsAndPoster(type);
                 }
             }
             if(newCount<oldCount){//如果原来的图片个数多于用户选中的图片个数则将多余的删除
@@ -528,12 +507,12 @@ public class AdminAction {
                     sb.append(oldList.get(i).getId());
                     sb.append(",");
                     if(type=="1"){//如果是首页滚动图
-                        NewsTemplate oldNt=ntd.find(oldList.get(i).getId(), NewsTemplate.class);
-                        DeleteImgByHtml.deletePicture(request,oldNt.getImgUrl());
+                        NewsTemplate oldNt=dao.find(oldList.get(i).getId(), NewsTemplate.class);
+                        DeleteImgByHtml.deletePicture(request, oldNt.getImgUrl());
                     }
                 }
                 sb.delete(sb.length()-1,sb.length());
-                ntd.deleteByIds(NewsTemplate.class,sb.toString());
+                dao.deleteByIds(NewsTemplate.class, sb.toString());
 
             }
         }

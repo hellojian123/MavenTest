@@ -26,7 +26,10 @@ public class Article implements Serializable {
 	 */
 	@Column
 	private String content;
-	
+
+    /**文章所属模块名称**/
+    @Column
+    private String parentTitle;
 	/**
 	 * 文章预览图url
 	 */
@@ -124,4 +127,6 @@ public class Article implements Serializable {
 	public void setPreviewImg(String previewImg) {
 		this.previewImg = previewImg;
 	}
+    public String getParentTitle() {return parentTitle;}
+    public void setParentTitle(String parentTitle) {this.parentTitle = parentTitle;}
 }

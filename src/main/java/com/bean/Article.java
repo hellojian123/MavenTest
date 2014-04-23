@@ -77,16 +77,6 @@ public class Article implements Serializable {
 	/**
 	 * 文章所属分类名字
 	 */
-	@Column
-	private String parentTitle;//文章所属分类名字
-
-	public String getParentTitle() {
-		return parentTitle;
-	}
-
-	public void setParentTitle(String parentTitle) {
-		this.parentTitle = parentTitle;
-	}
 
 	public Integer getId() {
 		return id;

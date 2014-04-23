@@ -424,6 +424,7 @@ public class AdminAction extends BaseAction{
 	 * @param req
 	 */
 	@At("/admin/removeValueByName")
+    @Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
 	public void removeValueByName(@Param("name")String name,HttpServletRequest req){
 		req.getSession().removeAttribute(name);
 	}
@@ -442,6 +443,7 @@ public class AdminAction extends BaseAction{
      * @return
      */
     @At("/admin/changeBigImageCount")
+    @Filters(@By(type=CheckSession.class, args={"admin", "/goAdmin.jsp"}))
     public View changeBigImageCount(@Param("count") int newCount, Ioc ioc,HttpServletRequest request){
         changeNewsPicOrBigImage(newCount,"1",ioc,request);
         queryNewsAndPoster(ioc, request);

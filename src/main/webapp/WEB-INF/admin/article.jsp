@@ -97,7 +97,8 @@
             function saveOrUpdateArticle(){
                 if(validate()){
                     articleid=$("#articleid").val();
-                    $.post("${ctx}/admin/article/saveOrUpdateArticle",{"article.id":articleid,"article.title":title,"article.content":content,"article.previewImg":imgUrl,"article.typeid":articleType,"article.keywords":keywords,"article.source":source},function(data){
+                    parentTitle=$("#articleType").find("option:selected").text();
+                    $.post("${ctx}/admin/article/saveOrUpdateArticle",{"article.id":articleid,"article.title":title,"article.content":content,"article.parentTitle":parentTitle,"article.previewImg":imgUrl,"article.typeid":articleType,"article.keywords":keywords,"article.source":source},function(data){
                         if(data=="0"){
                             alert("添加成功！");
                         }else if(data=="1"){

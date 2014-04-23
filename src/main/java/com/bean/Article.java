@@ -1,10 +1,9 @@
 package com.bean;
 
+import org.nutz.dao.entity.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
-import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Id;
-import org.nutz.dao.entity.annotation.Table;
 
 @Table("t_article")
 public class Article implements Serializable {
@@ -19,40 +18,51 @@ public class Article implements Serializable {
 	 * 文章标题
 	 */
 	@Column
+    @ColDefine(type=ColType.VARCHAR,width=30)
 	private String title;
 	
 	/*
 	 * 文章内容
 	 */
 	@Column
+    @ColDefine(type=ColType.TEXT)
 	private String content;
-	
+
+    /**文章所属模块名称**/
+    @Column
+    @ColDefine(type=ColType.VARCHAR,width = 10)
+    private String parentTitle;
 	/**
 	 * 文章预览图url
 	 */
 	@Column
+    @ColDefine(type=ColType.VARCHAR,width = 60)
 	private String previewImg;//只有成功案例才享有此字段
 	
 	/*
 	 * 文章关键字
 	 */
 	@Column
+    @ColDefine(type=ColType.VARCHAR,width = 20)
 	private String keywords;
 	
 	/*
 	 * 文章来源
 	 */
 	@Column
+    @ColDefine(type=ColType.VARCHAR,width = 10)
 	private String source="";
 	/*
 	 * 文章作者
 	 */
 	@Column
+    @ColDefine(type=ColType.VARCHAR,width = 10)
 	private String author;
 	/*
 	 * 修改日期
 	 */
 	@Column
+    @ColDefine(type=ColType.DATE)
 	private Date modifyDate;
 	/*
 	 * 点击率
@@ -138,4 +148,6 @@ public class Article implements Serializable {
 	public void setPreviewImg(String previewImg) {
 		this.previewImg = previewImg;
 	}
+    public String getParentTitle() {return parentTitle;}
+    public void setParentTitle(String parentTitle) {this.parentTitle = parentTitle;}
 }

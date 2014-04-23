@@ -22,13 +22,14 @@ public class FriendLinks implements Serializable{
 	 * 链接名
 	 */
 	@Column
+    @ColDefine(type=ColType.VARCHAR,width = 10)
 	private String linkName;
 	
 	/*
 	 * 链接地址
 	 */
 	@Column
-	@ColDefine(type=ColType.VARCHAR,width=200)
+	@ColDefine(type=ColType.VARCHAR,width=100)
 	private String linkUrl;
 
 	public Integer getId() {

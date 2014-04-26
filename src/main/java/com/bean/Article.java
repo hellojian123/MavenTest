@@ -74,10 +74,19 @@ public class Article implements Serializable {
 	 */
 	@Column
 	private int typeid;// 1公司新闻   2行业动态   3成功案例    4公司介绍    5人才招聘    6业务体系  7网站建设  8系统开发  9 APP开发  10业务流程
-	/**
-	 * 文章所属分类名字
-	 */
 
+	/*
+	 * 展示在首页的案列缩略图
+	 */
+	@Column
+	private String thumbnails;//案列展示图片显示在首页的缩略图
+
+	public String getThumbnails() {
+		return thumbnails;
+	}
+	public void setThumbnails(String thumbnails) {
+		this.thumbnails = thumbnails;
+	}
 	public Integer getId() {
 		return id;
 	}

@@ -2,6 +2,9 @@ package com.action;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.FieldFilter;
 import org.nutz.ioc.Ioc;
@@ -25,7 +28,8 @@ public class ArticleAction extends BaseAction {
 	@At("/article/queryArticleListById")
 	public View queryArticleListById1(@Param("currentPage") Integer currentPage,@Param("typeid") Integer typeid,Ioc ioc,HttpServletRequest request){
 		if(currentPage==null){currentPage=1;}
-		int pageSize=SystemContext.PAGE_SIZE;//每页显示十条数据
+		int pageSize=SystemContext.PAGE_SIZE;//每页显示10条数据
+		if(typeid==3){pageSize=pageSize/2;}//如果是案例展示  每页显示5条数据
 		int count = dao.searchCount(Article.class,Cnd.where("typeid", "=", typeid));//获取指定类型的文章总数
 		int maxPage = dao.maxPageSize(count, pageSize);
 		if(currentPage>maxPage){
@@ -148,8 +152,7 @@ public class ArticleAction extends BaseAction {
 		
 		return new JspView("page.productShow");
 	}
-	
-	
+
 	/**
 	 * 根据文章Id获取文章
 	 */
@@ -169,24 +172,29 @@ public class ArticleAction extends BaseAction {
 		return new JspView("page.articleDetail");
 	}
 
-    @At("/article/Service")
-    public View getService(@Param("typeid")Integer typeid,Ioc ioc,HttpServletRequest req){
-        List<Article> atc=null;
+	@At("/article/goCaseList")
+	@Ok("json")
+	public String goCaseList(@Param("id")Integer caseId,Ioc ioc , HttpServletRequest req){
+		int pageSize=SystemContext.PAGE_SIZE/2;//每页显示5条数据
+		int count = dao.searchCount(Article.class,Cnd.where("typeid", "=",3));//获取指定类型的文章总数
+		int maxPage = dao.maxPageSize(count, pageSize);
+		int cPage = 0;
 
-        if (typeid==7){
-            atc=dao.search(Article.class,Cnd.where("typeid","=",7));
-        }
-        if (typeid==8){
-            atc=dao.search(Article.class,Cnd.where("typeid","=",8));
-        }
-        if (typeid==9){
-            atc=dao.search(Article.class,Cnd.where("typeid","=",9));
-        }
-        Article article=atc.get(0);
-        req.setAttribute("article", article);
-        return new JspView("page.articleDetail");
-    }
-	
+		int tempPageSize = pageSize;
+		for(int i=1; i<=maxPage; i++){
+			List<Article> caseList =  dao.searchByPage(Article.class,Cnd.where("typeid", "=", 3).desc("modifyDate"), i, tempPageSize);
+			for(Article art: caseList){
+				int id = art.getId();
+				if(id==caseId){
+					cPage = i;
+				}
+			}
+		}
+		Gson gson=new GsonBuilder().create();
+		String currentPage = gson.toJson(cPage);
+		return currentPage;
+	}
+
 }
 
 

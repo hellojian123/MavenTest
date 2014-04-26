@@ -12,7 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>无标题文档</title>
+	<title>${webName}</title>
 	<link rel="stylesheet" href="${ctx}/matter/css/reset.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/index.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/style.css" media="screen"  type="text/css"/>
@@ -71,7 +71,15 @@
 		<jsp:include page="bottom.jsp"/>
 	</div>
 </body>
-<!-- JiaThis Button BEGIN -->
-<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<script>   /*分享工具配置文件*/
+var jiathis_config = {
+	showClose:false,
+	url:"www.baidu.com",
+	title:'${webName}',
+	summary:"haha",
+	pic:"http://img2.yododo.com.cn/files/cms/20130805114223.jpg"
+}
+</script>
+<script type="text/javascript" src="http://v1.jiathis.com/code/jiathis_r.js?move=0" charset="utf-8"></script>
 <!-- JiaThis Button END -->
 </html>

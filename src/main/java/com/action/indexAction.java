@@ -22,12 +22,12 @@ public class indexAction extends BaseAction  {
 	@At("/index")
 	public View index(Ioc ioc , HttpServletRequest req){
         final  Object objs[]=new Object[2];
-        FieldFilter.create(Article.class, "(^id|title$)").run(new Atom() {
+        FieldFilter.create(Article.class, "(^id|title|modifyDate$)").run(new Atom() {
             public void run() {
-                objs[0]=dao.searchByPage(Article.class, Cnd.where("typeid", "=", 1).desc("modifyDate"), 1, 6);//新闻动态5
+                objs[0]=dao.searchByPage(Article.class, Cnd.where("typeid", "=", 1).or("typeid","=",2).desc("modifyDate"), 1, 6);//新闻和动态5
             }
         });
-        FieldFilter.create(Article.class, "(^id|title|previewImg$)").run(new Atom() {
+        FieldFilter.create(Article.class, "(^id|title|thumbnails|previewImg$)").run(new Atom() {
             public void run() {
                 objs[1]=dao.searchByPage(Article.class, Cnd.where("typeid", "=", 3).and("previewImg","!=","").desc("modifyDate"), 1, 8);//案例展示
             }

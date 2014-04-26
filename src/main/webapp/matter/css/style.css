@@ -5,15 +5,15 @@
 #cont_main{width:1000px;margin:0 auto;padding:20px 0 30px 0;}
 .list_nav{width:200px;margin-top:5px;}
 .list_nav ul{border:1px solid #e1e1e1;}
-.list_nav ul li{width:198px;height:40px;line-height:40px;border-bottom:1px dashed #e1e1e1;}
+.list_nav ul li{width:198px;height:40px;font-size:16px;line-height:40px;border-bottom:1px dashed #e1e1e1;}
 .list_nav ul li a{width:198px;display:inline-block;text-align:center;}
-.list_nav ul li a:hover{color:#0C3;font-size:14px;}
-.classfi{width:198px;background-color:#176081;text-align:center;color:#ffffff;font-size:16px !important;font-weight:500;}
+.list_nav ul li a:hover{color:#00aff0;}
+.list_nav ul .classfi{width:198px;height:45px;line-height:45px;background-color:#00aff0;text-align:center;color:#ffffff;font-size:18px ;font-weight:600;}
 
 
 .list_tact{width:198px;margin-top:20px;border:1px solid #e1e1e1;}
 .list_tact ul li{padding-left:15px;height:24px;line-height:24px;color:#999999;}
-.classday{font-size:16px;color:#0C3 !important;}
+.list_tact ul .classday{font-size:16px;color:#00aff0;}
 
 /*------------------------新闻列表---------------------------------------------------------------*/
 
@@ -23,24 +23,25 @@
 .main_header p span{font-size:12px;display:inline-block;padding:6px 0 0 3px;color:#cccccc; }
 .main_header span{float:right;display:inline-block;color:#777777;padding-top:4px;}
 ._cont_main ul{padding:15px 15px 15px 20px;border-bottom:1px dashed #e1e1e1;}
-._cont_main ul li h4{color:#125fad;display:inline-block;width:400px !important;}
-._cont_main ul li span{float:right;color:#125fad;}
-._cont_main ul li p{text-indent:20px;color:#747373; font-family:Verdana, Geneva, sans-serif;}
-._cont_main ul li p a{/*color:#F00;*/}
-._cont_main ul li p a:hover{color:#43B12B}
+._cont_main ul li h4{color:#0093f0;display:inline-block;width:400px ;}
+._cont_main ul li a>h4:hover{color:#ffad26;}
+._cont_main ul li span{float:right;color:#5ab2ea;}
+._cont_main ul li p{text-indent:20px;color:#747373; font-family:Verdana, Geneva, sans-serif;padding-top:6px;}
+._cont_main ul li p a{color:#a6a6a6;}
+._cont_main ul li p a:hover{color:#ffad26;}
 
 
 /*------------------------新闻列表---------------------------------------------------------------*/
 
 
 /*------------------------内容---------------------------------------------------------------*/
-.content{padding-top:10px;}
+.content{padding-top:10px;;}
 .content .content_tit{padding:0px 0 auto;padding-top:10px;}
 .content .content_tit h4{text-align:center;}
 .content .content_tit ul{width:400px;margin:0 auto;padding:0 ;border:none;}
 .content .content_tit ul li{float:left;margin-left:20px;color:#777777;}
 .content ul li{height:28px;line-height:28px;}
-.content p{margin-top:10px; text-indent:20px;color:#747373; font-family:Verdana, Geneva, sans-serif;/*letter-spacing:1px;*/line-height:20px;}
+.content p{margin-top:10px; text-indent:20px;color:#747373; font-family:Verdana, Geneva, sans-serif;/*letter-spacing:1px;*/line-height:20px;word-WRAP: break-word;}
 
 
 .content_gallery {
@@ -48,9 +49,7 @@
 	margin: 30px auto 0 auto;
 	padding: 0 0px 20px 0px;
 	border: solid 0px #cbcbcb;
-	background: #fafafa;
-	-moz-box-shadow: 0px 0px 10px #cbcbcb;
-	-webkit-box-shadow: 0px 0px 10px #cbcbcb;
+	
 }
 
 
@@ -66,9 +65,9 @@
 .content_gallery a img {
 	width:725px;
 	height:150px;
-	border: 1px solid #BBB;
-	padding: 2px;
-	margin: 10px 0px 10px 0px;
+	
+	
+	
 	vertical-align: top;
 }
 
@@ -100,8 +99,8 @@
 	   padding:8px 10px;
 	   color:#6a6a6a;
 	   }
-.list a:hover{background-color:#b8b8b8;
-              border-color:#e0e0e0 #9b9a9a #9b9a9a #e0e0e0; 
+.list a:hover{background-color:#ffad26;
+              border-color:#ececec; 
 			  border-width:1px; 
 			  border-style:solid;
 			  }

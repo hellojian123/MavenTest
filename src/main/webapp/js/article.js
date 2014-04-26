@@ -5,7 +5,7 @@ var imgUrl="";
 var articleType="";
 var keywords="";
 var source="";
-
+var thumbnails="";
 /**
  * 客户端校验输入数据
  * @returns {boolean}
@@ -28,10 +28,16 @@ function validate(){
         return false;
     }
     var display=$("#previewImgP").css("display");
-    if($.trim(display)=='block'){
-        imgUrl=$("#imgUrlAddress").attr("src");
+	var thumbnailsDisplay=$("#thumbnails").css("display");
+    if($.trim(display)=='block'||$.trim(thumbnailsDisplay)=='block'){
+        imgUrl=$("#previewImgUrlAddress").attr("src");
+		thumbnails=$("#thumbnailsImgAddress").attr("src");
         if(imgUrl==""){
-            alert("请上传该成功案例的预览图！");
+            alert("请上传该成功案例的大图！");
+            return false;
+        }
+		if(thumbnails==""){
+            alert("请上传该成功案例的缩略图！");
             return false;
         }
     }
@@ -93,7 +99,8 @@ function edit(prefix,id,editor){
         $("#title").val(data.title);
         editor.html(data.content);
         $("#keywords").val(data.keywords);
-        $("#imgUrlAddress").attr("src",data.previewImg);
+        $("#previewImgUrlAddress").attr("src",data.previewImg);
+        $("#thumbnailsImgAddress").attr("src",data.thumbnails);
         $("#source").val(data.source);
         if(data.typeid!=1&&data.typeid!=2&&data.typeid!=3&&data.typeid!=11){// 除公司新闻   行业动态  成功案例以外的其他新闻
             $("#articleTypeMinor").val(data.typeid);
@@ -105,6 +112,7 @@ function edit(prefix,id,editor){
             $('#main').css('display','block');
             if(data.typeid==3){
                 $("#previewImgP").css("display","block");
+                $("#thumbnails").css("display","block");
             }
         }
         var a = $('.content-box ul.content-box-tabs li a');

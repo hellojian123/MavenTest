@@ -12,12 +12,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>无标题文档</title>
+	<title>${webName}</title>
 	<link rel="stylesheet" href="${ctx}/matter/css/reset.css" media="screen" type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/index.css" media="screen" type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/style.css" media="screen" type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/lrtk.css" type="text/css"/>
 	<link rel="stylesheet" type="text/css" href="${ctx}/matter/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+	<link rel="stylesheet" href="${ctx}/matter/css/fenye.css" type="text/css"/>
 
 	<script type="text/javascript" src="${ctx}/matter/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/global.js"></script>
@@ -25,8 +26,32 @@
 	<script type="text/javascript" src="${ctx}/matter/js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/gallery.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-	<script>
-		!window.jQuery && document.write('<script src="js/jquery-1.4.3.min.js"><\/script>');
+	<script type="text/javascript" src="${ctx}/matter/js/script.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//案列展示预览图显示
+			$(".div_liulan a img").each(function(index,item){
+				var imgSrc = $(this).attr("src");
+				var img = new Image();
+				img.src = imgSrc;
+				if(img.complete){
+					dealWith(img,$(item));
+					img = null;
+				}else{
+					img.onload=function(){
+						dealWith(img,$(item));
+						img = null;
+					};
+				}
+			});
+		});
+		//处理预览图样式
+		function dealWith(obj,selc){
+			var originalHeight = obj.height;   //图片原始高度
+			var originalWidth = obj.width;		//图片原始宽度
+			selc.css({height:function(){return originalHeight+"px";},
+				/*width:function(){return originalWidth+"px";}*/});
+		};
 	</script>
 </head>
 
@@ -38,30 +63,27 @@
 			<!-- - - - - - - - - - - - - - _cont_main - - - - - - - - - - - - - - - - -->
 			<div class="_cont_main">
 				<div class="main_header">
-					<p>最新动态<span>NEWS</span></p>
-					<span>你现在的位置：首页>关于我们>最新动态</span>
+					<p>${parentTitle}<span>GALLERY</span></p>
+					<span>你现在的位置：首页>${parentTitle}</span>
 					<div class="clear"></div>
 				</div>
-				<!-- - - - - - - - - - - - - - _cont_main ul - - - - - - - - - - - - - - - - -->
+				<!-- - - - - - - - - - - - - - _cont_main ul START- - - - - - - - - - - - - - - - -->
 				<div class="content_gallery">
 					<p>
-						<a rel="example_group" href="${ctx}/matter/images/example/9_b.jpg" title="作品展示标题"><img alt="" src="${ctx}/matter/images/example/9_s.jpg" /></a>
-						<a rel="example_group" href="${ctx}/matter/images/example/10_b.jpg" title="作品展示标题"><img alt="" src="${ctx}/matter/images/example/10_s.jpg" /></a>
-						<a rel="example_group" href="${ctx}/matter/images/example/11_b.jpg" title="作品展示标题"><img alt="" src="${ctx}/matter/images/example/11_s.jpg" /></a>
-						<a rel="example_group" href="${ctx}/matter/images/example/12_b.jpg" title="作品展示标题"><img class="last" alt="" src="${ctx}/matter/images/example/12_s.jpg" /></a>
+						<c:forEach items="${articles}" var="caseImg">
+							<div class="div_liulan">
+								<a rel="example_group" href="${caseImg.previewImg}" title="作品展示标题"><img id="img_liulan" alt="" src="${caseImg.previewImg}" /></a>
+							</div>
+						</c:forEach>
 					</p>
 				</div>
 				<div class="clear"></div>
+				<!-- - - - - - - - - - - - - - _cont_main ul END!- - - - - - - - - - - - - - - - -->
 				<!-- ------------------------分页list----------------------------------------------------------------->
-				<div class="list">
-					<a href="#">上一页</a>
-					<a href="#"><span>1</span></a>
-					<a href="#"><span>2</span></a>
-					<a href="#"><span>3</span></a>
-					<a href="#"><span>4</span></a>
-					<a href="#"><span>5</span></a>
-					<a href="#">下一页</a>
-				</div>
+				<div id="page" class="yahoo2" style="margin-top: 25px"></div>
+				<script type="text/javascript">
+					$("#page").html(fenyeComment("${pm.maxPage}","${currentPage}","${ctx}/article/queryArticleListById","typeid=${typeid}"));
+				</script>
 				<!-- ------------------------分页list----------------------------------------------------------------->
 			</div>
 			<div class="clear"></div>
@@ -70,7 +92,15 @@
 		<jsp:include page="bottom.jsp"/>
 	</div>
 </body>
-<!-- JiaThis Button BEGIN -->
-<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<script>   /*分享工具配置文件*/
+var jiathis_config = {
+	showClose:false,
+	url:"www.baidu.com",
+	title:'${webName}',
+	summary:"haha",
+	pic:"http://img2.yododo.com.cn/files/cms/20130805114223.jpg"
+}
+</script>
+<script type="text/javascript" src="http://v1.jiathis.com/code/jiathis_r.js?move=0" charset="utf-8"></script>
 <!-- JiaThis Button END -->
 </html>

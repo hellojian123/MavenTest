@@ -12,7 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>${webName}-${article.title}</title>
+	<title>${webName}</title>
 	<link rel="stylesheet" href="${ctx}/matter/css/reset.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/index.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/style.css" media="screen"  type="text/css"/>
@@ -31,13 +31,10 @@
 			<!-- - - - - - - - - - - - - - _cont_main - - - - - - - - - - - - - - - - -->
 			<div class="_cont_main">
 				<div class="main_header">
-
-					<p>${parentTitle}<span>NEWS</span></p>
+					<p>${parentTitle}<span>SERVICE</span></p>
 					<span>你现在的位置：首页>${parentTitle}>${article.title}</span>
-
 					<div class="clear"></div>
 				</div>
-
 				<!-- - - - - - - - - - - - - - _cont_main ul - - - - - - - - - - - - - - - - -->
 				<div class="content">
 					<div class="content_tit">
@@ -52,7 +49,6 @@
 					<p>
 						${article.content}
 					</p>
-
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -62,7 +58,15 @@
 		<jsp:include page="bottom.jsp"/>
 	</div>
 </body>
-<!-- JiaThis Button BEGIN -->
-<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<script>   /*分享工具配置文件*/
+var jiathis_config = {
+	showClose:false,
+	url:"www.baidu.com",
+	title:'${webName}',
+	summary:"haha",
+	pic:"http://img2.yododo.com.cn/files/cms/20130805114223.jpg"
+}
+</script>
+<script type="text/javascript" src="http://v1.jiathis.com/code/jiathis_r.js?move=0" charset="utf-8"></script>
 <!-- JiaThis Button END -->
 </html>

@@ -33,14 +33,14 @@
 
 <!-- - - - - - - - - - - - - - Header - - - - - - - - - - - - - - - - -->
 <header id="header">
-	<a href="" target="_self"><img src="${ctx}/matter/images/logo.jpg" alt="logo" /></a>
+	<a href="${ctx}/index" target="_self"><img width="200px" height="80px" src="${ctx}/matter/images/logo5.png" alt="logo" /></a>
 	<nav id="navigation" >
 		<ul>
-			<li ><a href="${ctx}/index">网站首页</a></li>
-			<li><a href="${ctx}/article/queryArticleListById?typeid=1">新闻资讯</a></li>
-			<li><a href="${ctx}/article/queryArticleListById?typeid=3">案例展示</a></li>
-			<li><a href="${ctx}/article/queryArticleListById?typeid=6">服务支持</a></li>
-			<li><a href="${ctx}/article/queryArticleListById?typeid=4">关于我们</a></li>
+			<li ><a href="${ctx}/index" <c:if test="${typeid == null}">class="nav_color"</c:if> >网站首页</a></li>
+			<li><a href="${ctx}/article/queryArticleListById?typeid=1" <c:if test="${typeid==1||typeid==2}">class="nav_color"</c:if>>新闻资讯</a></li>
+			<li><a href="${ctx}/article/queryArticleListById?typeid=3" <c:if test="${typeid==3}">class="nav_color"</c:if>>案例展示</a></li>
+			<li><a href="${ctx}/article/queryArticleListById?typeid=6" <c:if test="${typeid==6||typeid==10||typeid==5||typeid==7||typeid==8||typeid==9}">class="nav_color"</c:if>>服务支持</a></li>
+			<li><a href="${ctx}/article/queryArticleListById?typeid=4" <c:if test="${typeid==4}">class="nav_color"</c:if>>关于我们</a></li>
 		</ul>
 	</nav><!--/ #navigation-->
 	<div class="clear"></div>

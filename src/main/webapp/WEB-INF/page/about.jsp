@@ -12,16 +12,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>无标题文档</title>
+	<title>${webName}</title>
 	<link rel="stylesheet" href="${ctx}/matter/css/reset.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/index.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/style.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/lrtk.css" type="text/css"/>
 
-	<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/global.js"></script>
 	<script type="text/javascript" src="${ctx}/matter/js/tab.js"></script>
+	<%--<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>--%>
 <body>
 	<div class="wrap">
 		<jsp:include page="head.jsp"/>
@@ -30,7 +30,7 @@
 			<!-- - - - - - - - - - - - - - _cont_main - - - - - - - - - - - - - - - - -->
 			<div class="_cont_main">
 				<div class="main_header">
-					<p>${parentTitle}<span>NEWS</span></p>
+					<p>${parentTitle}<span>COMPANY</span></p>
 					<span>你现在的位置：首页>关于我们>${parentTitle}</span>
 					<div class="clear"></div>
 				</div>
@@ -40,25 +40,29 @@
 						<h4>${article.title}</h4>
 						<div class="clear"></div>
 					</div>
-
 					<p>
 						${article.content}
 					</p>
-					<ul class="no_border">
-						<li>业务咨询：0755-61829391、0755-61829392、0755-33133167、0755-33133168</li>
-						<li>客服邮箱：kefu@tiandixin.net/kefu@heartcom.cn</li>
-						<li>公司地址：成都市一环路东段</li>
-						<li>邮编：610000</li>
-					</ul>
 				</div>
 				<div class="clear"></div>
 				<!-- - - - - - - - - - - - - - map- - - - - - - - - - - - - - - - -->
+
 				<div class="dv2">
+					<div style="margin-left: -20px;">
+						<ul class="no_border">
+							<li >业务咨询：0755-61829391、0755-61829392、0755-33133167、0755-33133168</li>
+							<li style="padding-top: 10px">客服邮箱：kefu@tiandixin.net/kefu@heartcom.cn</li>
+							<li style="padding-top: 10px">公司地址：成都市一环路东段</li>
+							<li style="padding-top: 10px">邮编：610000</li>
+						</ul>
+					</div>
 					<div align="center" class="div_tel">
 						<div style="width: 798px; height: 350px; border: #ccc solid 1px;" id="dituContent">
 						</div>
 					</div>
 				</div>
+				<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+
 				<script type="text/javascript">
 					//创建和初始化地图函数：
 					function initMap(){
@@ -155,8 +159,8 @@
 					}
 					initMap();//创建和初始化地图
 				</script>
-				<!-- - - - - - - - - - - - - - map- - - - - - - - - - - - - - - - -->
 
+				<!-- - - - - - - - - - - - - - map- - - - - - - - - - - - - - - - -->
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -164,7 +168,15 @@
 	</div>
 
 </body>
-<!-- JiaThis Button BEGIN -->
-<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<script>   /*分享工具配置文件*/
+var jiathis_config = {
+	showClose:false,
+	url:"www.baidu.com",
+	title:'${webName}',
+	summary:"haha",
+	pic:"http://img2.yododo.com.cn/files/cms/20130805114223.jpg"
+}
+</script>
+<script type="text/javascript" src="http://v1.jiathis.com/code/jiathis_r.js?move=0" charset="utf-8"></script>
 <!-- JiaThis Button END -->
 </html>

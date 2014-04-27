@@ -100,6 +100,11 @@
             <artifactId>nutz</artifactId>
             <version>1.b.48</version>
         </dependency>
+				<dependency>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<version>9.3-1101-jdbc41</version>
+				</dependency>
         <!--
         <dependency>
             <groupId>com.xnet.nutz</groupId>

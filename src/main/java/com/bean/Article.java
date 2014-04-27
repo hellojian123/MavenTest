@@ -36,7 +36,7 @@ public class Article implements Serializable {
 	 * 文章预览图url
 	 */
 	@Column
-    @ColDefine(type=ColType.VARCHAR,width = 60)
+    @ColDefine(type=ColType.VARCHAR,width = 260)
 	private String previewImg;//只有成功案例才享有此字段
 	
 	/*
@@ -79,6 +79,7 @@ public class Article implements Serializable {
 	 * 展示在首页的案列缩略图
 	 */
 	@Column
+	@ColDefine(type=ColType.VARCHAR,width = 260)
 	private String thumbnails;//案列展示图片显示在首页的缩略图
 
 	public String getThumbnails() {

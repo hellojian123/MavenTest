@@ -1,5 +1,5 @@
 var ioc = {
-datasource:{
+	datasource:{
 		type:"org.apache.commons.dbcp.BasicDataSource",
 		events:{
 			depose:"close"

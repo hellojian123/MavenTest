@@ -17,7 +17,10 @@
  	
 
 //文件保存目录路径
-String savePath = pageContext.getServletContext().getRealPath("/") + "attached/";
+//String savePath = pageContext.getServletContext().getRealPath("/") + "attached/";
+String savePath = System.getProperty("user.dir");
+String webappName = savePath.substring(savePath.lastIndexOf("\\"));
+savePath = savePath+"/target/"+webappName+"/attached/";
 
 //文件保存目录URL
 String saveUrl  = request.getContextPath() + "/attached/";
@@ -44,6 +47,7 @@ if(!ServletFileUpload.isMultipartContent(request)){
 //检查目录
 File uploadDir = new File(savePath);
 if(!uploadDir.isDirectory()){
+	System.out.println(savePath+"-------------------------");
 	out.println(getError("上传目录不存在。"));
 	return;
 }

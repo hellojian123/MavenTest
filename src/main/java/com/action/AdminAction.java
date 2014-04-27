@@ -510,7 +510,8 @@ public class AdminAction extends BaseAction{
                     sb.append(",");
                     if(type=="1"){//如果是首页滚动图
                         NewsTemplate oldNt=dao.find(oldList.get(i).getId(), NewsTemplate.class);
-                        DeleteImgByHtml.deletePicture(request, oldNt.getImgUrl());
+						System.out.println(oldNt.getImgUrl()+"-----------------------------");
+						DeleteImgByHtml.deletePicture(request, oldNt.getImgUrl());
                     }
                 }
                 sb.delete(sb.length()-1,sb.length());

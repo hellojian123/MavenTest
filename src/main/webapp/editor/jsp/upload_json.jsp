@@ -17,10 +17,10 @@
  	
 
 //文件保存目录路径
-//String savePath = pageContext.getServletContext().getRealPath("/") + "attached/";
-String savePath = System.getProperty("user.dir");
+String savePath = pageContext.getServletContext().getRealPath("/") + "attached/";
+/*String savePath = System.getProperty("user.dir");
 String webappName = savePath.substring(savePath.lastIndexOf("\\"));
-savePath = savePath+"/target/"+webappName+"/attached/";
+savePath = savePath+"/target/"+webappName+"/attached/";*/
 
 //文件保存目录URL
 String saveUrl  = request.getContextPath() + "/attached/";

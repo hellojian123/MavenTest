@@ -63,14 +63,16 @@ public class DeleteImgByHtml {
 	 * @param imgSrc 图片路径
 	 */
 	public static void deletePicture(HttpServletRequest req, String imgSrc){
+		/*
 		String path = System.getProperty("user.dir");
 		String webappName = path.substring(path.lastIndexOf("\\"));
 		String realPic = path+"/target/"+webappName+imgSrc;
-		/*
+		*/
+
 		String path=req.getServletContext().getContextPath();//项目名
 		String pathPic = req.getSession().getServletContext().getRealPath("/");
 		String realPic=pathPic.substring(0, pathPic.length()-(path.length()+1))+imgSrc;
-		*/
+
 		String newImgSrc=realPic.replace("/", File.separator).replace("\\", File.separator);//处理不同系统 文件夹路径分隔符不同的问题
 		File file = new File(newImgSrc);
 		if(file.exists()){

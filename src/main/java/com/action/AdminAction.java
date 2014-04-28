@@ -289,7 +289,7 @@ public class AdminAction extends BaseAction{
         //如果用户改变图片，则删除上一张图片
         NewsTemplate oldNt=dao.find(nt.getId(), NewsTemplate.class);
         if(null!=nt.getImgUrl()&&null!=oldNt.getImgUrl()&&!nt.getImgUrl().equals(oldNt.getImgUrl())){
-           DeleteImgByHtml.deletePicture(req, oldNt.getImgUrl());
+           //DeleteImgByHtml.deletePicture(req, oldNt.getImgUrl());
         }
 
 		if(dao.update(nt)){

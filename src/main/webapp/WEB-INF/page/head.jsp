@@ -52,28 +52,28 @@
 		<li class="bgli01" style=" background:#2a95bb url(${indexPic[0].imgUrl}) center no-repeat;">
 			<div class="banner_inner">
 				<div class="child child2" >
-                    <a href="${indexPic[0].newsLink}" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
+                    <a href="${indexPic[0].newsLink}" target="_blank"></a></div>
 			</div>
 			<div class="clear"></div>
 		</li>
         <li class="bgli02" style=" background:#2a95bb url(${indexPic[1].imgUrl}) center no-repeat;">
 			<div class="banner_inner">
 				<div class="child child2" >
-                    <a href="${indexPic[1].newsLink}" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
+                    <a href="${indexPic[1].newsLink}" target="_blank"></a></div>
 			</div>
 			<div class="clear"></div>
 		</li>
         <li class="bgli03" style=" background:#2a95bb url(${indexPic[2].imgUrl}) center no-repeat;">
 			<div class="banner_inner">
 				<div class="child child2" >
-                    <a href="${indexPic[2].newsLink}" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
+                    <a href="${indexPic[2].newsLink}" target="_blank"></a></div>
 			</div>
 			<div class="clear"></div>
 		</li>
         <li class="bgli04" style=" background:#2a95bb url(${indexPic[3].imgUrl}) center no-repeat;">
 			<div class="banner_inner">
 				<div class="child child2" >
-                    <a href="${indexPic[3].newsLink}" target="_blank"><!--<img src="images/banner2-0.jpg" />--></a></div>
+                    <a href="${indexPic[3].newsLink}" target="_blank"></a></div>
 			</div>
 			<div class="clear"></div>
 		</li>

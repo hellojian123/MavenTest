@@ -15,7 +15,7 @@
 			<div class="introText">
 				<ul>
 					<li><span></span></li>
-					<li><span>Copyright © 2010-2014 &nbsp;&nbsp;成都艾软信息技术有限公司</span></li>
+					<li><span>版权所有 © 2010-2014 &nbsp;&nbsp;成都艾软信息技术有限公司</span></li>
 					<li><span>地址：成都市一环路东5段东恒国际</span></li>
 					<li><span>电话：028-65590449	</span></li>
 					<li><span>邮箱：bloackctrap@yahoo.com</span></li>

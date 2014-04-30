@@ -33,7 +33,7 @@
 
 <!-- - - - - - - - - - - - - - Header - - - - - - - - - - - - - - - - -->
 <header id="header">
-	<a href="${ctx}/index" target="_self"><img width="200px" height="80px" src="${ctx}/matter/images/logo5.png" alt="logo" /></a>
+	<a href="${ctx}/index" target="_self"><img width="200px" height="80px" src="${ctx}/matter/images/isoft-log.jpg" alt="logo" /></a>
 	<nav id="navigation" >
 		<ul>
 			<li ><a href="${ctx}/index" <c:if test="${typeid == null}">class="nav_color"</c:if> >网站首页</a></li>

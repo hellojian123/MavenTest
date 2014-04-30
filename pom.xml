@@ -92,24 +92,26 @@
             <version>1.5.8</version>
         </dependency>
 				<dependency>
-					<groupId>org.nutz</groupId>
-					<artifactId>nutz</artifactId>
-					<version>1.b.49</version>
-				</dependency>
-				<dependency>
 					<groupId>org.postgresql</groupId>
 					<artifactId>postgresql</artifactId>
 					<version>9.3-1101-jdbc41</version>
 				</dependency>
-        <!--
-        <dependency>
-            <groupId>com.xnet.nutz</groupId>
-            <artifactId>nutz</artifactId>
-            <version>1.b.48</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/nutz-1.b.48.jar</systemPath>
-        </dependency>
-        -->
+				<!--
+				<dependency>
+					<groupId>org.nutz</groupId>
+					<artifactId>nutz</artifactId>
+					<version>1.b.49</version>
+				</dependency>
+				-->
+
+				<dependency>
+						<groupId>com.xnet.nutz</groupId>
+						<artifactId>nutz</artifactId>
+						<version>1.b.48</version>
+						<scope>system</scope>
+						<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/nutz-1.b.48.jar</systemPath>
+				</dependency>
+
 				<dependency>
 					<groupId>javax.servlet</groupId>
 					<artifactId>servlet-api</artifactId>

@@ -96,14 +96,15 @@
 					<artifactId>postgresql</artifactId>
 					<version>9.3-1101-jdbc41</version>
 				</dependency>
-				<!--
+
 				<dependency>
 					<groupId>org.nutz</groupId>
 					<artifactId>nutz</artifactId>
 					<version>1.b.49</version>
 				</dependency>
-				-->
 
+
+				<!--
 				<dependency>
 						<groupId>com.xnet.nutz</groupId>
 						<artifactId>nutz</artifactId>
@@ -111,6 +112,7 @@
 						<scope>system</scope>
 						<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/nutz-1.b.48.jar</systemPath>
 				</dependency>
+				-->
 
 				<dependency>
 					<groupId>javax.servlet</groupId>
